@@ -36,3 +36,53 @@
     transform: rotate(360deg);
   }
 }
+
+.redDiv {
+    width:100%;
+    height:90%;
+    background:red;
+}
+
+.greenDiv {
+  width:100%;
+    height:90%;
+    background:green;
+}
+
+.blueDiv {
+  width:100%;
+  height:90%;
+  background:blue;
+}
+
+.yellowDiv {
+  width:100%;
+  height:90%;
+  background: yellow;
+}
+
+.violetDiv {
+  width:100%;
+  height:90%;
+  background: violet;
+}
+
+.purpleDiv {
+  width:100%;
+  height:90%;
+  background: purple;
+}
+
+.canvasBorder {
+  width: 490px;
+  height: 490px;
+  border: 5px solid black;
+
+}
+
+.card {
+  border: 1px solid #dadada;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
+  width: 50%;
+}
