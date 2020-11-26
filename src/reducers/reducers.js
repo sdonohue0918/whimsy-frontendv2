@@ -44,7 +44,7 @@ export const initialState = {
 
 }
 
-export const widthReducer = (state = initialState, action) => {
+export const widthReducer = (state = 500, action) => {
     switch(action.type) {
        
         case CHANGE_STAGE_WIDTH:
@@ -57,7 +57,7 @@ export const widthReducer = (state = initialState, action) => {
     }
 }
 
-export const heightReducer = (state = initialState, action) => {
+export const heightReducer = (state = 500, action) => {
     switch (action.type) {
         case CHANGE_STAGE_HEIGHT:
             return {
@@ -71,7 +71,7 @@ export const heightReducer = (state = initialState, action) => {
 
 
 
-export const colorReducer = (state = initialState, action) => {
+export const colorReducer = (state = "#1a1a18", action) => {
     switch(action.type) {
         case CHANGE_COLOR: 
             return {
@@ -86,7 +86,7 @@ export const colorReducer = (state = initialState, action) => {
     } 
 }
 
-export const strokeWidthReducer = (state = initialState, action) => {
+export const strokeWidthReducer = (state = 2, action) => {
     switch(action.type) {
         case CHANGE_STROKEWIDTH:
             return {
@@ -97,7 +97,7 @@ export const strokeWidthReducer = (state = initialState, action) => {
     }
 }
 
-export const tensionReducer = (state = initialState, action) => {
+export const tensionReducer = (state = 0.3, action) => {
     switch(action.type) {
         case CHANGE_TENSION:
             return {
@@ -111,7 +111,7 @@ export const tensionReducer = (state = initialState, action) => {
 
 }
 
-export const linecapReducer = (state = initialState, action) => {
+export const linecapReducer = (state = 'round', action) => {
     switch(action.type) {
         case CHANGE_LINECAP:
             return {
@@ -126,23 +126,23 @@ export const linecapReducer = (state = initialState, action) => {
 
 
 
-export const eiselsReducer = (state = initialState, action) => {
+export const eiselsReducer = (state = [], action) => {
     switch (action.type) {
         case GET_STAGES:
             return {
                 ...state,
-                stages: [...state.stages, action.payload]
+                stages: action.payload
             }
         case ADD_EISEL:
             return {
-                ...state, stages: [...state.stages, action.payload]
+                ...state, stages: [...state.tages, action.payload]
             }
         default:
             return state
     }
 }
 
-export const eiselReducer = (state = initialState, action) => {
+export const eiselReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_STAGE:
         return {
@@ -154,7 +154,7 @@ export const eiselReducer = (state = initialState, action) => {
     }
 }
 
-export const searchInputReducer = (state = initialState, action) => {
+export const searchInputReducer = (state = "", action) => {
     switch (action.type) {
         case GET_SEARCH_INPUT:
         return {
@@ -165,7 +165,7 @@ export const searchInputReducer = (state = initialState, action) => {
     }
 }
 
-export const selectInputReducer = (state = initialState, action) => {
+export const selectInputReducer = (state = "", action) => {
     switch (action.type) {
         case GET_SELECT_INPUT:
             return {
@@ -176,18 +176,47 @@ export const selectInputReducer = (state = initialState, action) => {
     }
 }
 
-export const rootReducer = combineReducers({
-    width: widthReducer,
-    height: heightReducer,
-    stages: eiselsReducer,
-    stage: eiselReducer,
-    stroke: colorReducer,
-    strokeWidth: strokeWidthReducer,
-    tension: tensionReducer,
-    lineCap: linecapReducer,
-    searchInput: searchInputReducer,
-    selectInput: selectInputReducer
+ export const rootReducer = combineReducers({
+        width: widthReducer,
+        height: heightReducer,
+        stages: eiselsReducer,
+        stage: eiselReducer,
+        stroke: colorReducer,
+        strokeWidth: strokeWidthReducer,
+        tension: tensionReducer,
+        lineCap: linecapReducer,
+        searchInput: searchInputReducer,
+        selectInput: selectInputReducer
+    
+    })
 
-})
 
 export default rootReducer
+
+// export const rootReducer = combineReducers({
+//     width: widthReducer,
+//     height: heightReducer,
+//     stages: eiselsReducer,
+//     stage: eiselReducer,
+//     stroke: colorReducer,
+//     strokeWidth: strokeWidthReducer,
+//     tension: tensionReducer,
+//     lineCap: linecapReducer,
+//     searchInput: searchInputReducer,
+//     selectInput: selectInputReducer
+
+// })
+
+// export const rootReducer = combineReducers({
+//     widthReducer,
+//     heightReducer,
+//     eiselsReducer,
+//     eiselReducer,
+//     colorReducer,
+//     strokeWidthReducer,
+//     tensionReducer,
+//     linecapReducer,
+//     searchInputReducer,
+//     selectInputReducer
+
+// })

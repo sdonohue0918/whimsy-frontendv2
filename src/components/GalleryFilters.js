@@ -1,54 +1,51 @@
 import {useState} from 'react'
 import {getSearchInput, getSelectInput} from '../actions/actions'
-import {connect} from 'react-redux'
 
-const GalleryFilters = () => {
 
-    const [searchInput, setSearchInput] = useState("")
-    const [selectInput, setSelectInput] = useState("")
+const GalleryFilters = (props) => {
 
-    const searchHandler = (e) => {
-        setSearchInput(e.target.value)
-        this.props.getSearchInput(e.target.value)
+    // const [searchInput, setSearchInput] = useState("")
+    // const [selectInput, setSelectInput] = useState("none")
+
+    const handleSearch = (evt) => {
+        // setSearchInput(evt.target.value)
+        props.setSearch(evt.target.value)
+        
     }
 
-    const selectHandler = (e) => {
-        setSelectInput(e.target.value)
-        this.props.getSelectInput(e.target.value)
+    const handleSelect = (evt) => {
+        // setSelectInput(evt.target.value)
+        props.setSelect(evt.target.value)
+        
+        
     }
-
-    // const onSelectToggle = (e) => {
-    //     this.props.getSelectInput(e.target.value)
-    // }
-
-    // const onSearchToggle = (e) => {
-    //     this.props.getSearchInput(e.target.value)
-    // }
     
-    
-        return (
+    return (
         <div>
-            <input type="text" name="searchInput" value={searchInput} onChange={searchHandler}></input>
-            <select onChange={selectHandler} value={selectInput}>
-                <option value="abstract"></option>
-                <option value="modern"></option>
-                <option value="realism"></option>
+            {/* <input type="text" name="searchInput" value={searchInput} onChange={handleSearch}></input> */}
+            <select onChange={handleSelect} value={props.selectValue}>
+                <option value="allEisels">All User Creations</option>
+                <option value="userOnly" >My Eisels</option>
+                <option value="likedEisels">My Liked Eisels</option>
 
             </select>
+
         </div>
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getSearchInput: (etv) => {
-            dispatch(getSearchInput(etv))
-        },
-        getSelectInput: (etv) => {
-            dispatch(getSelectInput(etv))
-        }
-    }
-}
 
 
-export default connect(null, mapDispatchToProps)(GalleryFilters)
+export default  GalleryFilters 
+    
+
+// const mapDispatchToProps = (dispatch) => {
+    //     return {
+    //         getSearchInput: (etv) => {
+    //             dispatch(getSearchInput(etv))
+    //         },
+    //         getSelectInput: (etv) => {
+    //             dispatch(getSelectInput(etv))
+    //         }
+    //     }
+    // }

@@ -1,28 +1,58 @@
-import React from 'react'
-import { Stage, Layer, Line, Text } from 'react-konva';
+import { useRef, useEffect, useState } from 'react'
+import { Stage, Layer, Line, Rect} from 'react-konva';
 import {postStage, addEisel} from '../actions/actions'
 import { connect } from 'react-redux'
+import {NavLink} from 'react-router-dom'
+import NewEiselForm from './NewEiselForm';
+
 
 
 
 const EiselTest = (props) => {
-    const [tool, setTool] = React.useState('pen')
-    const [lines, setLines] = React.useState([])
-    const [lineColor, setLineColor] = React.useState('black')
-    const [name, setName] = React.useState("")
-    const [genre, setGenre] = React.useState("")
-    const [file, setFile] = React.useState(null)
-    // const [imgUrl, setimgUrl] = React.useState("")
-    const isDrawing = React.useRef(false) 
-    const eiselStage = React.useRef()
-    const targetLayer = React.useRef()
+    
+    const [stageProps, setStageProps] = useState({height: 600,
+                                            width: 600})
+
+    const [lineProps, setLineProps] = useState({stroke: 'black',
+                                        strokeWidth: 1,
+                                        tension: 0.2,
+                                        lineCap: 'round'})
+    
+    
+    
+    const [lines, setLines] = useState([])
+    const [lineColor, setLineColor] = useState('black')
+    
+    const [strokeWidth, setStrokeWidth] = useState(1)
+    const [tension, setTension] = useState(0.2)
+    const [lineCap, setLineCap] = useState('round')
+
+    const [rawData, setRawData] = useState(null)
+    const isDrawing = useRef(false) 
+    const eiselStage = useRef()
+    const targetLayer = useRef()
+    
+    const [click, setClick] = useState(false)
+    const [formClick, setFormClick] = useState(false)
+    
+    
+    
+        useEffect(() => {
+            handleSave()
+        }, [setFormClick])
 
 
 
     const handleMouseDown = (e) => {
         isDrawing.current = true;
         const pos = e.target.getStage().getPointerPosition();
-        setLines([...lines, { points: [pos.x, pos.y] }]);
+
+        if (click) {
+
+            setLines([...lines, {  points: [pos.x, pos.y], stroke: 'white', strokeWidth: strokeWidth, tension: tension, lineCap: lineCap }]);
+        } else {
+            setLines([...lines, {  points: [pos.x, pos.y], stroke: lineColor, strokeWidth: strokeWidth, tension: tension, lineCap: lineCap }])
+        }
       };
 
 
@@ -45,261 +75,123 @@ const EiselTest = (props) => {
       const handleMouseUp = (e) => {
         isDrawing.current = false;
         targetLayer.current = e.target
-        // return lines.map((line, i) => (<Line key={i} points={line.points} stroke={lineColor} strokeWidth={props.strokeWidth.strokeWidth} tension={props.tension.tension} lineCap={props.lineCap.lineCap}/>))
+        
       };
 
-      const clickHandler = (e) => {
-        let colorSpan = e.target.innerText
-        console.log(e.target.innerText)
-        setLineColor(colorSpan)
-      }
+    
 
       const handleSave = () => {
-       //let url = eiselStage.toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")
-       let canvas = document.getElementsByTagName('canvas')[0]
-       let url = canvas.toDataURL()
-       let stripUrl = url.replace(/^data:image\/(png|jpg);base64,/, "")
-       let byteCharacters = atob(stripUrl)
-       const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-        
-        const byteArray = new Uint8Array(byteNumbers)
-        // const blob = new Blob([byteArray], {type: 'image/png'})
-        const file = new File([byteArray], "image-name.png", {type: 'image/png'})
-        setFile(file)
+          let canvas = document.getElementsByTagName('canvas')[0]
+          let url = canvas.toDataURL()
+          let stripUrl = url.replace(/^data:image\/(png|jpg);base64,/, "")
+          let byteCharacters = atob(stripUrl)
+          const byteNumbers = new Array(byteCharacters.length);
+               for (let i = 0; i < byteCharacters.length; i++) {
+               byteNumbers[i] = byteCharacters.charCodeAt(i);
+               }
+           
+           const byteArray = new Uint8Array(byteNumbers)
+           
+           setRawData(byteArray)
+       
+       
        
 
+        }
+
+      const eraseClickHandler = () => {
+          setClick(prevClick => !prevClick)
+          
         
-
-
       }
 
-      const handlePost = () => {
-          let form = new FormData()
-          form.append("eisel[name]", "coolthing")
-          form.append("eisel[user_id]", "1")
-          form.append("eisel[genre]", "magical_realism")
-          form.append("eisel[imagefile]", file)
-            
-        props.postStage(form)
+      const formClickHandler = () => {
+        
+        setFormClick(prevFormClick => !prevFormClick)
+
+        
+      } 
+
+    const eraseSelect = () => {
+        return (
+            <div>
+                <select id="eraseoptions" onChange={(evt) => {setStrokeWidth(evt.target.value)}}>
+                    <option value={2}>Small Eraser</option>
+                    <option value={4}>Mid Eraser</option>
+                    <option value={6}>Large Eraser</option>
+                </select>
+            </div>
+        )
+    } 
 
 
 
-      }
+
     
+      console.log(rawData)
       return (
           <>
-        <span onClick={clickHandler} className='redDiv'>red</span>
-        <span onClick={clickHandler} className="yellowDiv">yellow</span>
-        <span onClick={clickHandler} className="greenDiv">green</span>
-        <span onClick={clickHandler} className="blueDiv">blue</span>
-        <span onClick={clickHandler} className="violetDiv">violet</span>
-        <span onClick={clickHandler} className="purpleDiv">purple</span>
           
+
+        <div className='colorbar'>
+            <input type="color" onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
+        </div>
+        
+       <select id="strokeWidth" onChange={(evt) => {setStrokeWidth(evt.target.value)}}>
+           <option value={1} selected>Small</option>
+           <option value={2.5}>Mid</option>
+           <option value={4}>Large</option>
+       </select>
+       
+       <select id="tension" onChange={(evt) => {setTension(evt.target.value)}}>
+           <option value={0.2} selected>Less Curve</option>
+           <option value={0.5}>More Curve</option>
+           <option value={0.75}>Curvy</option>
+       </select>
+       
+       <select id="linecap" onChange={(evt) => {setLineCap(evt.target.value)}}>
+           <option value='round' selected>Round</option>
+           <option value='square'>Square</option>
+           <option value='butt'>Butted</option>
+       </select>
+       <button id="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
+       
+          <div className='canvas'>
           <div className='canvasBorder'>
             
               <Stage
               
               ref={eiselStage}
-              width={props.width.width}
-              height={props.height.height}
+              width={stageProps.width}
+              height={stageProps.height}
               onMouseDown={handleMouseDown}
               onMousemove={handleMouseMove}
               onMouseUp={handleMouseUp}
               > 
+
                   <Layer ref={targetLayer}>
-      {isDrawing ? lines.map((line, i) => (<Line key={i} points={line.points} stroke={lineColor} strokeWidth={props.strokeWidth.strokeWidth} tension={props.tension.tension} lineCap={props.lineCap.lineCap}/>)) : console.log(lineColor)}
+                      <Rect height={590} width={590} fill='white'/>
+
+                      
+                   {isDrawing ? lines.map((line, i) => (<Line key={i} points={line.points} stroke={line.stroke} strokeWidth={line.strokeWidth} tension={line.tension} lineCap={line.lineCap} />)) : console.log("check for errors")}
+                  
                   
                   </Layer>
               </Stage>
-                {/* {lines.map((line, i) => (<Line))} */}
+               
+              {click ? eraseSelect() : console.log('erase select not rendered')}
 
-
-        <button onClick={handlePost}>POST CANVAS</button>
-        <button onClick={handleSave}>SAVE CANVAS</button>
-
-        {/* <img src={imgUrl} alt='whatever'></img> */}
+        
+        <button onClick={formClickHandler}>POST CANVAS</button>
+        {/* <button onClick={handleSave}>SAVE CANVAS</button> */}
+        {formClick ? <NewEiselForm data={rawData} postEisel={props.postEisel} currentUser={props.currentUser}/> : console.log("error")}
+        <NavLink to='/gallery/display'>Back to Gallery!</NavLink>
+          </div>
           </div>
           </>
       )
 
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        postStage: (eiselObj) => dispatch(postStage(eiselObj)),
-        addEisel: (eisel) => dispatch(addEisel(eisel))
-    }
-}
+export default EiselTest
 
-
-
-export default connect(null, mapDispatchToProps)(EiselTest)
-
-
-
-// const mapStateToProps = (state) => {
-//     return {
-//         width: state.width,
-//         height: state.height,
-//         stages: state.stages,
-//         stage: state.stage,
-//         stroke: state.stroke,
-//         strokeWidth: state.strokeWidth,
-//          tension: state.tension,
-//         lineCap: state.lineCap
-
-
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         changeColor: (color) => { dispatch(changeColor(color)) },
-//         changeStrokewidth: (swidth) => { dispatch(changeStrokewidth(swidth)) },
-//         changeTension: (tension) => { dispatch(changeTension(tension)) },
-//         changeLinecap: (lineCap) => { dispatch(changeLinecap(lineCap)) },
-//         changeStageHeight: (stageHeight) => { dispatch(changeStageHeight(stageHeight)) },
-//         changeStageWidth: (stageWidth) => { dispatch(changeStageWidth(stageWidth)) },
-//         postStage: (currentStage) => { dispatch(postStage(currentStage)) }
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-// class EiselTest extends React.Component {
-
-
-//     state = {
-//         canvas: [],
-//         canvasUrl: "",
-//         uploadedCanvas: {},
-
-//     }
-    
-//     localOnClick = () => {
-//         let canvas = document.getElementById('canvas')
-//         let context = canvas.getContext('2d')
-//         addTriangle(context)
-
-//         // let stage = new createjs.Stage('canvas')
-//         // let circle = new createjs.Shape()
-//         // circle.graphics.beginFill("DeepBlueSky").drawCircle(0, 0, 50)
-//         // circle.x = 100
-//         // circle.y = 100
-//         // stage.addChild(circle)  
-        
-//     }
-    
-//     saveImageToBlob = () => {
-//         let canvas = document.getElementById('canvas')
-//         return new Promise(function(resolve, reject) {
-//             canvas.toBlob(function(blob) {
-//                 resolve(blob)
-//             }
-//         )})
-        
-       
-//     }   
-    
-//     postImageToState = () => {
-//          this.saveImageToBlob().then(resp => this.setState({
-//             canvas: [...this.state.canvas, resp]
-//         }))
-       
-        
-//     }
-    
-//     getBlobtoUrl = () => {
-//         let blob = this.state.canvas[0]
-//         let url = URL.createObjectURL(blob)
-//         this.setState({
-//             canvasUrl: url
-//        })
-//     }
-
-//     postBlobToRails = () => {
-//         let blob = this.state.canvas[0]
-
-//         let file = new File([blob], "eisel_name.png", {type: 'image/png'})
-        
-//         let form = new FormData()
-        
-//         form.append('eisel[name]', 'faunetta')
-//         form.append('eisel[user_id]', 1)
-//         form.append('eisel[imagefile]', file)
-        
-    
-
-//         let config = {
-//                 method: "POST",
-//                 body: form
-//             }
-
-//         console.log(config.body)
-//         fetch('http://localhost:3000/eisels', config).then(resp => resp.json()).then(data => console.log(data))
-//     }
-
-
-
-//     render() {
-       
-//         let url = this.state.canvasUrl
-        
-//         return(
-            
-//             <div id="canvas-container">
-//                 <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-//                 <canvas id="canvas" height={450} width={450} onClick={this.localOnClick}></canvas>
-//                 <button onClick={this.postImageToState}>Save your Image</button>
-//                 <img id='image' src={url} alt='whatever' onClick={this.getBlobtoUrl}></img> 
-//                 <button onClick={this.postBlobToRails}>Post Blob to Rails</button>
-//             </div>
-            
-//         )
-//     }
-// }
-
-// export default EiselTest
-
-// let config = {
-//     method: "POST",
-//     headers: {
-//         "content-type": "application/json"
-//     },
-//     body: JSON.stringify(formImageData)
-// }
-
-
-
-
-
-{/* <div >
-              <span onClick={clickHandler} className='redDiv'>red</span>
-              </div>
-              <div >
-              <span onClick={clickHandler} className="yellowDiv">yellow</span>
-              </div>
-              <div >
-              <span onClick={clickHandler} className="greenDiv">green</span>
-              </div>
-              <div >
-              <span onClick={clickHandler} className="blueDiv">blue</span>
-              </div>
-              <div >
-              <span onClick={clickHandler} className="violetDiv">violet</span>
-              </div>
-              <div >
-              <span onClick={clickHandler} className="purpleDiv">purple</span>
-              </div> */}

@@ -1,40 +1,5 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  background-color: grey;
 }
 
 .redDiv {
@@ -73,16 +38,89 @@
   background: purple;
 }
 
-.canvasBorder {
-  width: 490px;
-  height: 490px;
-  border: 5px solid black;
+.blackDiv {
+  width:100%;
+  height:90%;
+  background: blacks;
 
 }
+
+.canvasBorder {
+  width: 590px;
+  height: 590px;
+  border: 5px solid black;
+  
+  
+
+
+
+}
+
+.canvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .card {
-  border: 1px solid #dadada;
+  border: 2px solid #ca8b15;
   box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
-  width: 50%;
+  width: 25%;
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+  
+  
 }
+
+.cardImage {
+  width: 250px;
+  height: 250px;
+  
+}
+
+.showCard {
+  width: 50%;
+  border: 4px solid #ca8b15;
+  display: flex;
+  justify-content: center;
+  margin-left: 20%;
+}
+
+.showCardImage {
+  width: 800px;
+  height: 800px;
+}
+
+
+
+.colorSpanContainer {
+  display: table;
+}
+
+.colorSpan {
+  display: table-cell;
+  vertical-align: middle;
+}
+/* #eiselCardFlex {
+
+} */
+
+/* .column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+/* .row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+/* .row::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+

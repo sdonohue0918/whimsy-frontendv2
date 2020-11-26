@@ -11,11 +11,11 @@ import thunk from 'redux-thunk'
 import {BrowserRouter} from 'react-router-dom'
 
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+// const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
 ReactDOM.render(
-  <Provider store={store}>
+  
 
   <BrowserRouter>
   <React.StrictMode>
@@ -23,7 +23,7 @@ ReactDOM.render(
   </React.StrictMode>
   </BrowserRouter>
   
-  </Provider>,
+ ,
   
   document.getElementById('root')
 );
