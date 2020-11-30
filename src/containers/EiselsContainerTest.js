@@ -3,8 +3,7 @@ import {useEffect , useState} from 'react'
 import { render } from 'react-dom'
 import {connect} from 'react-redux'
 import {Switch, withRouter, Route} from 'react-router-dom'
-import EiselCard from '../components/EiselCard'
-import GalleryNav from '../components/GalleryNav'
+//import EiselCard from '../components/EiselCard'
 import GalleryFilters from '../components/GalleryFilters'
 import EiselShow from '../components/EiselShow'
 
@@ -15,20 +14,13 @@ const EiselsContainer = (props) => {
     const [filter, setFilter] = useState(null)
     
    
-
-   
-
-    
     // const renderEisels = () => {
 
     //     return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
         
     // }
 
-    
-    
-    
-    return (
+   return (
         <div>
             
             <Switch>

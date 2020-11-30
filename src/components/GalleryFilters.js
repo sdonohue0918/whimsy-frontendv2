@@ -1,27 +1,63 @@
-import {useState} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import EiselCard from '../components/EiselCard'
 
 
 const GalleryFilters = (props) => {
-    const [selectValue, setSelectValue] = useState("none")
+    const [selectValue, setSelectValue] = useState("userOnly")
+    const [filteredEisels, setFilteredEisels] = useState([])
+    const selectRef = useRef()
 
 
-    const handleSelect = (evt) => {
-        setSelectValue(evt.target.value)
+   
         
-    }
+        
+    useEffect(() => {
+        if (selectRef.current.value === selectValue) {
+            setFilter()
+        }
+    }, [selectRef, selectValue])
+    
+    
+    
+    const setFilter = () => {
+            if (selectValue === "userOnly") {
+                    let userEisels = props.eisels.filter(eisel => eisel.user_id === props.currentUser.id)
+                    setFilteredEisels(userEisels)
+                } else if (selectValue === "allEisels") {
+                    let allEisels = props.eisels.filter(eisel => eisel)
+                    setFilteredEisels(allEisels)
+                } else if (selectValue === "likedEisels") {
+                    let likedEisels = props.eisels.filter(eisel => eisel.user_id !== props.currentUser.id)
+                    let userLikes = likedEisels.filter(eisel => eisel.likes.some(like => like.user_id === props.currentUser.id))
+                    setFilteredEisels(userLikes)
+                } else if (selectValue === "savedArtworks") {
+                    let userArtworks = props.artworks.filter(work => work.user_id === props.currentUser.id)
+                    setFilteredEisels(userArtworks)
+                }
+            }
 
+            
+
+
+                    
+    
+
+    
     const renderEisels = () => {
-        return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
+        return filteredEisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
     }
+    
+    console.log(selectValue)
+    console.log(filteredEisels)
     
     return (
         <div>
             
-            <select onChange={handleSelect} value={selectValue}>
+            <select ref={selectRef} onChange={(evt) => setSelectValue(evt.target.value)} value={selectValue}>
                 <option value="allEisels">All User Creations</option>
                 <option value="userOnly" >My Eisels</option>
                 <option value="likedEisels">My Liked Eisels</option>
+                <option value="savedArtworks">My Saved Artworks</option>
             </select>
 
             <div>

@@ -45,6 +45,7 @@ const GalleryContainer = (props) => {
                             <NavLink to='/gallery/display'>Visit Your Gallery!</NavLink>
                             <NavLink to='/museum'>Visit The Museum!</NavLink>
                             <NavLink to='/gallery/createeisel'>Go Create!</NavLink>
+                            <NavLink to='/coloring'>DeStress!</NavLink>
                         </div>
                     )
                 }}/>
