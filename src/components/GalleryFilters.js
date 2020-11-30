@@ -1,34 +1,32 @@
 import {useState} from 'react'
-import {getSearchInput, getSelectInput} from '../actions/actions'
+import EiselCard from '../components/EiselCard'
 
 
 const GalleryFilters = (props) => {
+    const [selectValue, setSelectValue] = useState("none")
 
-    // const [searchInput, setSearchInput] = useState("")
-    // const [selectInput, setSelectInput] = useState("none")
 
-    const handleSearch = (evt) => {
-        // setSearchInput(evt.target.value)
-        props.setSearch(evt.target.value)
+    const handleSelect = (evt) => {
+        setSelectValue(evt.target.value)
         
     }
 
-    const handleSelect = (evt) => {
-        // setSelectInput(evt.target.value)
-        props.setSelect(evt.target.value)
-        
-        
+    const renderEisels = () => {
+        return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
     }
     
     return (
         <div>
-            {/* <input type="text" name="searchInput" value={searchInput} onChange={handleSearch}></input> */}
-            <select onChange={handleSelect} value={props.selectValue}>
+            
+            <select onChange={handleSelect} value={selectValue}>
                 <option value="allEisels">All User Creations</option>
                 <option value="userOnly" >My Eisels</option>
                 <option value="likedEisels">My Liked Eisels</option>
-
             </select>
+
+            <div>
+                {renderEisels()}
+            </div>
 
         </div>
     )

@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {Switch, withRouter, Route} from 'react-router-dom'
 import EiselCard from '../components/EiselCard'
 import GalleryNav from '../components/GalleryNav'
+import GalleryFilters from '../components/GalleryFilters'
 import EiselShow from '../components/EiselShow'
 
 
@@ -18,16 +19,13 @@ const EiselsContainer = (props) => {
    
 
     
-    const renderEisels = () => {
+    // const renderEisels = () => {
 
-        return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
+    //     return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
         
-        
-    }
+    // }
 
-    const getFilterEisels = (selectInput) => {
-        console.log(selectInput) 
-    }
+    
     
     
     return (
@@ -51,8 +49,8 @@ const EiselsContainer = (props) => {
                     return (
                         <div>
 
-                        <GalleryNav setSearch={props.setSearch} setSelect={props.setSelect} selectValue={props.selectValue} />
-                        {renderEisels()}
+                        <GalleryFilters  eisels={props.eisels} artworks={props.artworks} currentUser={props.currentUser}/>
+                        {/* {renderEisels()} */}
                         </div>
                         )
                 }}/>

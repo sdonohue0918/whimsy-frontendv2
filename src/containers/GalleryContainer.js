@@ -27,22 +27,27 @@ const GalleryContainer = (props) => {
                     <div>
 
                 <EiselsContainer currentUser={props.currentUser} 
-                eisels={props.eisels} 
-                setSearch={props.setSearch} 
-                setSelect={props.setSelect} 
-                searchValue={props.searchValue} 
-                selectValue={props.selectValue} 
+                eisels={props.eisels}
+                artworks={props.artworks} 
                 deleteEisel={props.deleteEisel}
                 deleteLike={props.deleteLike} 
                 postLike={props.postLike}/>
-                <button onClick={() => history.push('/gallery')}>Back To Home</button>
+                
                 </div>
 
                 )}
                 }/>
 
                     
-                
+                <Route path='/gallery' render={() => {
+                    return (
+                        <div>
+                            <NavLink to='/gallery/display'>Visit Your Gallery!</NavLink>
+                            <NavLink to='/museum'>Visit The Museum!</NavLink>
+                            <NavLink to='/gallery/createeisel'>Go Create!</NavLink>
+                        </div>
+                    )
+                }}/>
             
 
             </Switch>

@@ -13,16 +13,16 @@ import React from 'react'
 
 
   function App() {
-  const [eisels, setAllEisels] = useState([])
-  const [artworks, setArtWorks] = useState([])
-  const [filterEisels, setFilterEisels] = useState(null)
-  const [users, setAppUsers] = useState([])
-  const [currentUser, setCurrentUser] = useState(null)
-  const [searchInput, setSearchInput] = useState("")
-  const [selectInput, setSelectInput] = useState("allEisels")
+  
+    const [eisels, setAllEisels] = useState([])
+    const [artworks, setArtWorks] = useState([])
+  //const [filterEisels, setFilterEisels] = useState(null)
+    const [users, setAppUsers] = useState([])
+    const [currentUser, setCurrentUser] = useState(null)
+    //const [selectInput, setSelectInput] = useState("allEisels")
   
   
-  const history = useHistory()
+    const history = useHistory()
 
 
   
@@ -30,16 +30,42 @@ import React from 'react'
   useEffect(() => {
     fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => setAllEisels(data))
     fetch('http://localhost:3000/users').then(resp => resp.json()).then(data => setAppUsers(data))
+    fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => setArtWorks(data))
   }, [])
-
-  
-  
 
   
   
   
   const postArtworkToAPI = (workObj) => {
-    console.log(workObj)
+    //console.log(workObj)
+    let data = new FormData()
+      data.append('artwork[user_id]', currentUser.id)
+      data.append('artwork[MET_ID]', workObj.objectID)
+      data.append('artwork[title]', workObj.title)
+      data.append('artwork[image_link]', workObj.primaryImage)
+      data.append('artwork[artist_name]', workObj.artistDisplayName)
+      data.append('artwork[date_made]', workObj.objectDate)
+      data.append('artwork[medium]', workObj.medium)
+      data.append('artwork[country_of_origin]', workObj.country)
+      data.append('artwork[region]', workObj.region)
+      data.append('artwork[kind]', workObj.objectName)
+
+    let config = {
+      method: "POST",
+      body: data
+    }
+
+
+    fetch('http://localhost:3000/artworks', config).then(resp => resp.json()).then(data => {
+      if (artworks.length > 0) {
+        setArtWorks([...artworks, data])
+      } else {
+        setArtWorks([data])
+      }
+    
+   
+    })
+  
   }
   
   
@@ -70,10 +96,6 @@ import React from 'react'
   }
 
 
-  const setSearchValue = (searchValue) => {
-    setSearchInput(searchValue)
-    history.push('/gallery/display')
-  }
 
    const setSelectValue = (selectValue) => {
     setSelectInput(selectValue)
@@ -83,7 +105,7 @@ import React from 'react'
   const getCurrentUser = (userObj) => {
     
     let userObjName = userObj.get('username')
-    let userObjPassword = userObj.get('password')
+    // let userObjPassword = userObj.get('password')
     //console.log(userObjName, userObjPassword)
 
     let matchUser = users.find(user => user.username === userObjName)
@@ -94,14 +116,14 @@ import React from 'react'
 
   }
   
-const getFilterEisels = () => {
-  if (selectInput === "allEisels") {
-    return eisels
-  } else if (selectInput === "userOnly") {
-    let currentUserEisels = eisels.filter(eisel => eisel.user_id === currentUser.id)
-    return currentUserEisels
-  } 
-}
+// const getFilterEisels = () => {
+//   if (selectInput === "allEisels") {
+//     return eisels
+//   } else if (selectInput === "userOnly") {
+//     let currentUserEisels = eisels.filter(eisel => eisel.user_id === currentUser.id)
+//     return currentUserEisels
+//   } 
+// }
 
 const deleteEisel = (eiselObj) => {
   let eiselsAfterDelete = eisels.filter(eisel => eisel.id !== eiselObj.id)
@@ -189,19 +211,17 @@ const removeLikeFromEisel = (likeObj) => {
   
                     <GalleryContainer 
                     
-                    setSelect={setSelectValue} 
-                    setSearch={setSearchValue}
+                    
                     currentUser={currentUser} 
-                    eisels={getFilterEisels()} 
+                    eisels={eisels}
+                    artworks={artworks} 
                     postEisel={postEiselToAPI}
                     deleteEisel={deleteEisel}
                     deleteLike={removeLikeFromEisel}
                     postLike={addLikeToEisel}
-                    searchValue={searchInput}
-                    selectValue={selectInput}
+                    
                     />
-                    <NavLink to='/gallery/display'>Visit Your Gallery!</NavLink>
-                    <NavLink to ='/museum'>Visit The Museum!</NavLink>
+                    
                     
                   </div>
                 )
@@ -212,7 +232,7 @@ const removeLikeFromEisel = (likeObj) => {
               <Route path='/museum' render={() => {
                 return (
                   <div>
-                    <MuseumContainer postWork={postArtworkToAPI}/>
+                    <MuseumContainer postWork={postArtworkToAPI} />
                   </div>
                 )
               }}/>
