@@ -1,5 +1,6 @@
 import {useState, useEffect, useRef} from 'react'
 import EiselCard from '../components/EiselCard'
+import ArtworkCard from './ArtworkCard'
 
 
 const GalleryFilters = (props) => {
@@ -44,11 +45,15 @@ const GalleryFilters = (props) => {
 
     
     const renderEisels = () => {
-        return filteredEisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
+        if (selectValue !== "savedArtworks") {
+
+            return filteredEisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
+        } else {
+            return filteredEisels.map(work => { return <ArtworkCard key={work.objectID} details={work}/>})
+        }
     }
     
-    console.log(selectValue)
-    console.log(filteredEisels)
+    
     
     return (
         <div>
@@ -83,3 +88,16 @@ export default  GalleryFilters
     //         }
     //     }
     // }
+
+    // <Route path='/museum/:id' render={(routerProps) => {
+    //     let work
+    //     if (works.length > 0) {
+    //         let id = parseInt(routerProps.match.params.id)
+    //         work = works.find(work => work.objectID === id)
+    //     }
+    //     return (
+    //         <div>
+    //             {work ? <ArtworkShow details={work} postWork={props.postWork}/> : null}
+    //         </div>
+    //     )
+    // }}/> 

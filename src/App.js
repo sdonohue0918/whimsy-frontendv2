@@ -16,10 +16,9 @@ import React from 'react'
   
     const [eisels, setAllEisels] = useState([])
     const [artworks, setArtWorks] = useState([])
-  //const [filterEisels, setFilterEisels] = useState(null)
     const [users, setAppUsers] = useState([])
     const [currentUser, setCurrentUser] = useState(null)
-    //const [selectInput, setSelectInput] = useState("allEisels")
+    
   
   
     const history = useHistory()
@@ -97,10 +96,7 @@ import React from 'react'
 
 
 
-   const setSelectValue = (selectValue) => {
-    setSelectInput(selectValue)
-    history.push('/gallery/display')
-  }
+   
 
   const getCurrentUser = (userObj) => {
     

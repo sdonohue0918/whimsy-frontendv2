@@ -20,7 +20,7 @@ const ColoringTest = () => {
 
     return (
         <div>
-            <Stage />
+            <Stage width={stageProps.height} height={stageProps.width}/>
         </div>
     )
 }

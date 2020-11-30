@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ArtworkCard from '../components/ArtworkCard'
+import MuseumFilter from '../components/MuseumFilter'
 import ArtworkShow from '../components/ArtworkShow'
 import {Route, Switch, NavLink} from 'react-router-dom'
 
@@ -10,37 +11,78 @@ const MuseumContainer = (props) => {
     const [objects, setObjects] = useState([])
     const [works, setWorks] = useState([])
     const [search, setSearch] = useState("")
-
+    const fetchSuccess = useRef(false)
+    const searchRef = useRef()
+    const searchTimeout = useRef()
+    
     
 
     const getMet = () => {
+        
         let config = {
             method: "GET",
             headers: {
                 "content-type": "application/json"
             }
         }
-        
         let newSearchTerm
         
+        let searchTerm = search.split(' ')
+        if (searchTerm.length === 1) {
+            newSearchTerm = searchTerm.join(' ')
+            
+        } else {
+            newSearchTerm = searchTerm.map(word => word + "+").join('').slice(0, -1)
+            
+        }
+    
+
+    fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${newSearchTerm}`, config).then(resp => resp.json()).then(data => setObjects(data)).catch(error => console.log(error))
        
             
-            let searchTerm = search.split(' ')
-            if (searchTerm.length === 1) {
-                newSearchTerm = searchTerm.join(' ')
-                
-            } else {
-                newSearchTerm = searchTerm.map(word => word + "+").join('').slice(0, -1)
-                
-            }
-        
-
-        fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${newSearchTerm}`, config).then(resp => resp.json()).then(data => setObjects(data)).catch(error => console.log(error))
     }
     
 
+    useEffect(() => {
+        
+        if (searchRef.current.value === search) {
+            searchTimeout.current = setTimeout(() => {
+                getMet()
+                
+                
+            }, 3000)
+        }
+
+        
+        return (() => { 
+            clearTimeout(searchTimeout)
+            
+           
+            
+        }) 
+    
+    }, [search])
 
 
+    // useEffect(() => {
+    //     if (successRef.current === true) {
+    //         testGetMetObject()
+    //     } else if (successRef.current === false) {
+    //         return
+    //     } 
+    // }, [])
+    
+    // useEffect(() => {
+    //     if (objects.objectIDs.length > 0) {
+    //         testGetMetObject()
+    //     } else {
+    //         return
+    //     }
+    // }, [objects])
+    
+    
+    
+    
     const testGetMetObject = () => {
         let config = {
             method: "GET",
@@ -49,13 +91,13 @@ const MuseumContainer = (props) => {
             }
         }
         
-        
         let idList = []
         
         for (let i = 0; i <= 20; i++) {
             idList.push(objects.objectIDs[Math.floor(Math.random() * objects.objectIDs.length)])
             
         }
+        
         
         let worksArray = []
         
@@ -73,18 +115,15 @@ const MuseumContainer = (props) => {
     }
 
     
-    const renderTestFunctions = () => {
-        return (
-            <div>
-                <button onClick={getMet}>GET MET F()</button>
-                <button onClick={testGetMetObject}>TEST GET</button>
-                
-            </div>
-        )
-    }
-    
-    
+    console.log(fetchSuccess)
+    console.log(objects)
     console.log(works)
+
+    if (objects === [] || objects.objectIDs.length === 0) {
+        fetchSuccess.current = false
+    } else if (objects.objectIDs.length > 0) {
+        fetchSuccess.current = true
+    }
     
     return (
         
@@ -114,9 +153,13 @@ const MuseumContainer = (props) => {
                     return (
                     <div>
                         
-                        {renderTestFunctions()}
-                        <input type="text" name="search" placeholder="Search for Art Here" value={search} onChange={(evt) => setSearch(evt.target.value)}></input>
-                        {works.length > 0 ? works.map(work => { return <ArtworkCard  details={work}/>}) : <h4>Search for Famous Pieces!</h4>}
+                        
+                        <input ref={searchRef} type="text" name="search" placeholder="Search for Art Here" value={search} onChange={(evt) => setSearch(evt.target.value)}></input>
+                        {/* {works.length > 0 ? works.current.map(work => { return <ArtworkCard  details={work}/>}) : <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>}
+                        {/* {objects.length > 0 ? <button onClick={testGetMetObject}>See Curated Findings</button> : null} */}
+                        {/* <button onClick={testGetMetObject}>See Curated Findings!</button>  */}
+                        {fetchSuccess.current === true ? <MuseumFilter objects={objects}/> : <div><h5>Search for Famous Pieces By Tag!</h5> </div> }
+                       
                     </div>
                     )
                     }}/>
@@ -179,3 +222,13 @@ export default MuseumContainer
 
     //     fetch(url, config).then(resp => resp.json()).then(data => setToken(data.token))
     // }
+
+    /// const renderTestFunctions = () => {
+        //     return (
+        //         <div>
+        //             <button onClick={getMet}>GET MET F()</button>
+        //             <button onClick={testGetMetObject}>TEST GET</button>
+                    
+        //         </div>
+        //     )
+        // }
