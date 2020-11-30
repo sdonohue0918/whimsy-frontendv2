@@ -5,8 +5,8 @@ const EiselCard = (props) => {
     let filePath = `http://127.0.0.1:8080/${props.eisel.name}.png`
    
     return (
-        <div className='row'>
-        <div className='column'>
+        
+        <>
 
         <div className='card'>
             <img className='cardImage' src={filePath} alt="no file here!"></img>
@@ -18,8 +18,7 @@ const EiselCard = (props) => {
             <button>Full Page</button>
             </NavLink>
         </div>
-        </div>
-        </div>
+       </>
     )
 }
 

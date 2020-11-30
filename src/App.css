@@ -104,6 +104,32 @@ body {
   display: table-cell;
   vertical-align: middle;
 }
+
+.artworkCard {
+  width: 25%;
+  border: 4px solid #ca8b15;
+  display: flex;
+  justify-content: center;
+  margin-left: 20%;
+}
+
+.artworkCardImage {
+  width: 250px;
+  height: 250px;
+}
+
+.artworkShow {
+  width: 50%;
+  border: 4px solid #ca8b15;
+  display: flex;
+  justify-content: center;
+  margin-left: 20%;
+}
+
+.artworkShowImage {
+  width: 800px;
+  height: 800px;
+}
 /* #eiselCardFlex {
 
 } */

@@ -10,60 +10,24 @@ import EiselShow from '../components/EiselShow'
 
 
 const EiselsContainer = (props) => {
-    const [userEisels, setUserEisels] = useState([])
-    const [allEisels, setAllEisels] = useState([])
+    const [Eisels, setAllEisels] = useState([])
     const [filter, setFilter] = useState(null)
     
-    const getUsersEisels = () => {
-        let currentUserEisels = props.eisels.filter(eisel => eisel.user_id === props.currentUser.id)
-        setUserEisels(currentUserEisels)
-    }
-
-    const getAllEisels = () => {
-        let eisels = props.eisels.map(eisel => {return <EiselCard key={eisel.id} eisel={eisel}/>})
-    }
+   
 
    
 
     
     const renderEisels = () => {
 
-        // let filterEisels = props.eisels.filter(eisel => eisel.name.toLowerCase().includes(props.searchValue.toLowerCase()))
-        // let applySelectFilter = props.eisels.filter(eisel => eisel.genre.toLowerCase().includes(props.selectValue.toLowerCase()))
-        // let newArray = filterEisels.concat(applySelectFilter)
-        // let bothFilters = [...new Set(newArray)] 
-
-        // return bothFilters.map( eisel => { return <EiselCard key={eisel.id} eisel={eisel}></EiselCard>})
-
-        // let filterEisels = userEisels.filter(eisel => eisel.name.toLowerCase().includes(props.searchValue.toLowerCase()))
-        //let applySelectFilter = userEisels.filter(eisel => eisel.genre.toLowerCase().includes(props.selectValue.toLowerCase()))
-        // let newArray = filterEisels.concat(applySelectFilter)
-        // let bothFilters = [...new Set(newArray)]
-        //return applySelectFilter.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
-        // else if (props.selectValue === "likedEisels") {
-        //     let likedEisels = props.eisels.filter( eisel => )
-        // }
-        // if (props.selectValue === "allEisels") {
-        //     return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
-            
-        //   } else if (props.selectValue === "userOnly") {
-        //     let currentUserEisels = props.eisels.filter(eisel => eisel.user_id === props.currentUser.id)
-        //     return currentUserEisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
-            
-        //   }
-
-        // if (filter === "userOnly" ) {
-        //     let currentUserEisels = props.eisels.filter(eisel => eisel.user_id === props.currentUser.id)
-        //     return currentUserEisels.map(eisel => {return <EiselCard key={eisel.id} eisel={eisel}/>})
-
-        // } else if (filter === "allEisels") {
-        //     return props.eisels.map(eisel => {return <EiselCard key={eisel.id} eisel={eisel}/>})
-        // }
-        
+        return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
         
         
     }
 
+    const getFilterEisels = (selectInput) => {
+        console.log(selectInput) 
+    }
     
     
     return (
@@ -78,7 +42,7 @@ const EiselsContainer = (props) => {
                     }
                     return (
                         <div>
-                            {eisel ? <EiselShow currentUser={props.currentUser} eisel={eisel}/> : <h3>Loading</h3> }
+                            {eisel ? <EiselShow postLike={props.postLike} deleteLike={props.deleteLike} deleteEisel={props.deleteEisel} currentUser={props.currentUser} eisel={eisel}/> : <h3>Loading</h3> }
                         </div>
                     )
                 }}/>
@@ -87,8 +51,8 @@ const EiselsContainer = (props) => {
                     return (
                         <div>
 
-                        <GalleryNav setSearch={props.setSearch} setSelect={props.setSelect} selectValue={props.selectValue}/>
-                        {/* {renderEisels()} */}
+                        <GalleryNav setSearch={props.setSearch} setSelect={props.setSelect} selectValue={props.selectValue} />
+                        {renderEisels()}
                         </div>
                         )
                 }}/>

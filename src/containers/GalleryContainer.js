@@ -26,7 +26,15 @@ const GalleryContainer = (props) => {
                 return (
                     <div>
 
-                <EiselsContainer currentUser={props.currentUser} eisels={props.eisels} setSearch={props.setSearch} setSelect={props.setSelect} searchValue={props.searchValue} selectValue={props.selectValue}/>
+                <EiselsContainer currentUser={props.currentUser} 
+                eisels={props.eisels} 
+                setSearch={props.setSearch} 
+                setSelect={props.setSelect} 
+                searchValue={props.searchValue} 
+                selectValue={props.selectValue} 
+                deleteEisel={props.deleteEisel}
+                deleteLike={props.deleteLike} 
+                postLike={props.postLike}/>
                 <button onClick={() => history.push('/gallery')}>Back To Home</button>
                 </div>
 
