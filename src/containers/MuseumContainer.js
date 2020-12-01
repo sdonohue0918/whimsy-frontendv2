@@ -3,17 +3,19 @@ import ArtworkCard from '../components/ArtworkCard'
 import MuseumFilter from '../components/MuseumFilter'
 import ArtworkShow from '../components/ArtworkShow'
 import {Route, Switch, NavLink} from 'react-router-dom'
+import { getSelectInput } from '../actions/actions'
 
 
 
 const MuseumContainer = (props) => {
-    //const [token, setToken] = useState(null)
+    
     const [objects, setObjects] = useState([])
-    const [works, setWorks] = useState([])
     const [search, setSearch] = useState("")
     const fetchSuccess = useRef(false)
     const searchRef = useRef()
     const searchTimeout = useRef()
+    
+    
     
     
 
@@ -44,109 +46,41 @@ const MuseumContainer = (props) => {
     
 
     useEffect(() => {
+        searchRef.current = search
         
-        if (searchRef.current.value === search) {
+        
+        if (searchRef.current === search) {
             searchTimeout.current = setTimeout(() => {
-                getMet()
-                
-                
-            }, 3000)
-        }
-
-        
-        return (() => { 
-            clearTimeout(searchTimeout)
-            
-           
-            
-        }) 
-    
-    }, [search])
-
-
-    // useEffect(() => {
-    //     if (successRef.current === true) {
-    //         testGetMetObject()
-    //     } else if (successRef.current === false) {
-    //         return
-    //     } 
-    // }, [])
-    
-    // useEffect(() => {
-    //     if (objects.objectIDs.length > 0) {
-    //         testGetMetObject()
-    //     } else {
-    //         return
-    //     }
-    // }, [objects])
-    
-    
-    
-    
-    const testGetMetObject = () => {
-        let config = {
-            method: "GET",
-            headers: {
-                "content-type": "application/json"
+                if (searchRef.current) {
+                    getMet()
             }
-        }
-        
-        let idList = []
-        
-        for (let i = 0; i <= 20; i++) {
-            idList.push(objects.objectIDs[Math.floor(Math.random() * objects.objectIDs.length)])
-            
-        }
-        
-        
-        let worksArray = []
-        
-        if (idList.length === 21) {
+            }, 2000)
 
-            for (let i = 0; i < idList.length; i++) {
-                fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${idList[i]}`, config).then(resp => resp.json()).then(data => {
-                worksArray.push(data)
-                
-               })
-            }
         }
         
-        setWorks(worksArray)
-    }
+        
+        
 
+        return (() => {
+            clearTimeout(searchTimeout.current)
+            fetchSuccess.current = true
+
+        })
     
+    }, [searchRef])
+
+
+    console.log(search)
     console.log(fetchSuccess)
     console.log(objects)
-    console.log(works)
-
-    if (objects === [] || objects.objectIDs.length === 0) {
-        fetchSuccess.current = false
-    } else if (objects.objectIDs.length > 0) {
-        fetchSuccess.current = true
-    }
+    
+    
     
     return (
         
         
         <div>
             <Switch>
-                
-            <Route path='/museum/:id' render={(routerProps) => {
-                    let work
-                    if (works.length > 0) {
-                        let id = parseInt(routerProps.match.params.id)
-                        work = works.find(work => work.objectID === id)
-                    }
-                    return (
-                        <div>
-                            {work ? <ArtworkShow details={work} postWork={props.postWork}/> : null}
-                        </div>
-                    )
-                }}/> 
-                
-                
-                
-                
                 
                 <Route path='/museum' render={() => {
 
@@ -158,10 +92,11 @@ const MuseumContainer = (props) => {
                         {/* {works.length > 0 ? works.current.map(work => { return <ArtworkCard  details={work}/>}) : <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>}
                         {/* {objects.length > 0 ? <button onClick={testGetMetObject}>See Curated Findings</button> : null} */}
                         {/* <button onClick={testGetMetObject}>See Curated Findings!</button>  */}
-                        {fetchSuccess.current === true ? <MuseumFilter objects={objects}/> : <div><h5>Search for Famous Pieces By Tag!</h5> </div> }
+                        {objects !== [] ? <MuseumFilter objects={objects} postWork={props.postWork}/> : <div><h5>Search for Famous Pieces By Tag!</h5> </div> }
                        
                     </div>
                     )
+                    
                     }}/>
 
                 

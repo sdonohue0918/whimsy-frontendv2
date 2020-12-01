@@ -37,9 +37,9 @@ const EiselTest = (props) => {
     
     
     
-        useEffect(() => {
-            handleSave()
-        }, [setFormClick])
+        // useEffect(() => {
+        //     handleSave()
+        // }, [setFormClick])
 
 
 
@@ -81,7 +81,7 @@ const EiselTest = (props) => {
     
 
       const handleSave = () => {
-          let canvas = document.getElementsByTagName('canvas')[0]
+          let canvas = eiselStage.current
           let url = canvas.toDataURL()
           let stripUrl = url.replace(/^data:image\/(png|jpg);base64,/, "")
           let byteCharacters = atob(stripUrl)
@@ -128,7 +128,13 @@ const EiselTest = (props) => {
 
 
     
-      console.log(rawData)
+      
+      
+      
+      
+      
+      
+      
       return (
           <>
           
@@ -183,6 +189,8 @@ const EiselTest = (props) => {
 
         
         <button onClick={formClickHandler}>POST CANVAS</button>
+        
+        
         {/* <button onClick={handleSave}>SAVE CANVAS</button> */}
         {formClick ? <NewEiselForm data={rawData} postEisel={props.postEisel} currentUser={props.currentUser}/> : console.log("error")}
         <NavLink to='/gallery/display'>Back to Gallery!</NavLink>

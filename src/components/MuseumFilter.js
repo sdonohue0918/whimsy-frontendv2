@@ -1,5 +1,7 @@
 import ArtworkCard from '../components/ArtworkCard'
-import {useState, useEffect, useRef} from 'react'
+import ArtworkShow from '../components/ArtworkShow'
+import {useEffect, useRef} from 'react'
+import {Switch, Route} from 'react-router-dom'
 
 
 const MuseumFilter = (props) => {
@@ -75,10 +77,48 @@ const MuseumFilter = (props) => {
     console.log(works.current)
     
     return (
-        <div>
-            {renderArtworks()}
-        </div>
+        <Switch>
+            
+            <Route to='/museum/:id' render={(routerProps) => {
+                let work
+                if (works.current.length > 0) {
+                    let id = parseInt(routerProps.match.params.id)
+                    work = works.current.find(work => work.objectID === id)
+                }
+
+                return (
+                    <div>
+                        {work ? <ArtworkShow details={work} postWork={props.postWork}/> : null}
+                    </div>
+                )
+            }}/>
+            
+            <Route to='/museum' render={() => {
+                return (
+                    <div>
+                        {renderArtworks()}
+                    </div>
+                )
+            }}/>
+        
+        
+        
+        </Switch>
     )
 }
 
 export default MuseumFilter
+
+
+{/* <Route path='/museum/:id' render={(routerProps) => {
+                    let work
+                    if (works.length > 0) {
+                        let id = parseInt(routerProps.match.params.id)
+                        work = works.find(work => work.objectID === id)
+                    }
+                    return (
+                        <div>
+                            {work ? <ArtworkShow details={work} postWork={props.postWork}/> : null}
+                        </div>
+                    )
+                }}/>  */}

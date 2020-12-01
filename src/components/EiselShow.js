@@ -10,14 +10,6 @@ const EiselShow = (props) => {
     }, [])
 
     
-    
-    
-    
-    
-    
-    
-
-
     const clickDelete = () => {
         //console.log(props.eisel)
         props.deleteEisel(props.eisel)
