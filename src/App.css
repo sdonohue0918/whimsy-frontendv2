@@ -88,8 +88,21 @@
   vertical-align: middle;
 }
 
+#artworkCardWrapper {
+  position: fixed;
+  margin-top: 75px;
+  margin-left: 50px;
+}
+#artworkCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px
+
+}
+
 .artworkCard {
-  width: 25%;
+  width: 260px;
+  height: 260px;
   border: 4px solid #ca8b15;
   box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-left: 20%;
@@ -103,8 +116,6 @@
 .artworkCardImage {
   width: 250px;
   height: 250px;
-  margin-top: 50px;
-  margin-left: 100px;
   border: 4px solid #1f1e1d
 
 }

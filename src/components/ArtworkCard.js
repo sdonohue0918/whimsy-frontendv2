@@ -11,15 +11,15 @@ const ArtworkCard = (props) => {
     }
 
     return (
+        <div>
         <div className='artworkCard' >
             
-            <img className='artworkCardImage' src={props.details.primaryImage} alt='not available'></img>
-            <h3 className='artworkCardTitle'>{props.details.title}</h3>
-            <h3 className='artworkCardName'>{props.details.artistDisplayName}</h3>
-            <h3 className='artworkCardDate'>{props.details.objectDate}</h3>
-            <button onClick={clickPush}></button>
-            {/* <NavLink to={`/museum/${props.details.objectID}`}></NavLink> */}
+            <img className='artworkCardImage' onClick={clickPush} src={props.details.primaryImage} alt='not available'></img>
+            
+            
+           
 
+        </div>
         </div>
     )
 }
