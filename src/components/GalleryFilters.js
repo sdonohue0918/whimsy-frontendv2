@@ -57,15 +57,17 @@ const GalleryFilters = (props) => {
     
     return (
         <div>
-            
+            <div id="galleryFilterSelect">
+
             <select ref={selectRef} onChange={(evt) => setSelectValue(evt.target.value)} value={selectValue}>
                 <option value="allEisels">All User Creations</option>
                 <option value="userOnly" >My Eisels</option>
                 <option value="likedEisels">My Liked Eisels</option>
                 <option value="savedArtworks">My Saved Artworks</option>
             </select>
+            </div>
 
-            <div>
+            <div id="eiselContainer">
                 {renderEisels()}
             </div>
 

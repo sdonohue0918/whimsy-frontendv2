@@ -11,12 +11,13 @@ const ArtworkCard = (props) => {
     }
 
     return (
-        <div className='artworkCard' onClick={clickPush}>
+        <div className='artworkCard' >
             
             <img className='artworkCardImage' src={props.details.primaryImage} alt='not available'></img>
-            <h6>{props.details.title}</h6>
-            <h6>{props.details.artistDisplayName}</h6>
-            <h6>{props.details.objectDate}</h6>
+            <h3 className='artworkCardTitle'>{props.details.title}</h3>
+            <h3 className='artworkCardName'>{props.details.artistDisplayName}</h3>
+            <h3 className='artworkCardDate'>{props.details.objectDate}</h3>
+            <button onClick={clickPush}></button>
             {/* <NavLink to={`/museum/${props.details.objectID}`}></NavLink> */}
 
         </div>

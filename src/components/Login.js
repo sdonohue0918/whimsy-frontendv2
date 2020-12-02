@@ -23,11 +23,16 @@ const Login = (props) => {
     
     return (
         <div>
-            <form ref={loginForm}>
-                <input type="text" placeholder="Enter your Username" name="username" value={username} onChange={(evt) => setUsername(evt.target.value)}/>
-                <input type="password" placeholder="Enter your Password" name="password" value={password} onChange={(evt) => setPassword(evt.target.value)}/>
-                <button onClick={loginUser}>Login To Start Creating!</button>
+            <div id='loginBackground'>
+            <div id='loginContainer'>
+
+            <form ref={loginForm} id='loginForm'>
+                <input className='loginInput' type="text" placeholder="Enter your Username" name="username" value={username} onChange={(evt) => setUsername(evt.target.value)}/>
+                <input className='loginInput' type="password" placeholder="Enter your Password" name="password" value={password} onChange={(evt) => setPassword(evt.target.value)}/>
+                <button id='loginButton'onClick={loginUser}>Login To Start Creating!</button>
             </form>
+            </div>
+            </div>
 
         </div>
     )

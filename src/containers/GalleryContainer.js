@@ -1,3 +1,4 @@
+// import '../GalleryHome.css'
 import EiselTest from '../components/EiselTest'
 import EiselsContainer from '../containers/EiselsContainerTest'
 import {Switch, Route, NavLink, withRouter, useHistory} from 'react-router-dom'
@@ -24,7 +25,7 @@ const GalleryContainer = (props) => {
             <Route path="/gallery/display" render={() => {
 
                 return (
-                    <div>
+                    <div >
 
                 <EiselsContainer currentUser={props.currentUser} 
                 eisels={props.eisels}
@@ -41,11 +42,35 @@ const GalleryContainer = (props) => {
                     
                 <Route path='/gallery' render={() => {
                     return (
-                        <div>
-                            <NavLink to='/gallery/display'>Visit Your Gallery!</NavLink>
+                        <div className='galleryBackground'>
+                            
+                            <img id='door' src='https://www.pngkey.com/png/full/322-3226486_screen-door.png' alt='not found' onClick={() => { history.push('/museum') }}/>
+                            
+                            
+                            
+                            
+
+                            <img id='eisel' src='https://img.freepik.com/free-photo/close-up-golden-blank-white-frame_23-2147910001.jpg?size=626&ext=jpg' alt='not found' onClick={() => { history.push('/gallery/display') }}/>
+                            
+                            
+                            
+                            
+
+                            <img id='coloringBook' src='https://images-na.ssl-images-amazon.com/images/I/41en2EIkbOL._SX258_BO1,204,203,200_.jpg' alt='not found' onClick={() => { history.push('/coloring') }}/>
+                            
+                            
+                            
+                            
+
+                            <img id='pallete' src='https://images.freeimages.com/images/large-previews/a0b/artist-palette-1172456.jpg' alt='not found' onClick={() => { history.push('/gallery/createeisel') }}/>
+                            
+                            
+                        <div >
+                            {/* <NavLink to='/gallery/display'>Visit Your Gallery!</NavLink>
                             <NavLink to='/museum'>Visit The Museum!</NavLink>
                             <NavLink to='/gallery/createeisel'>Go Create!</NavLink>
-                            <NavLink to='/coloring'>DeStress!</NavLink>
+                            <NavLink to='/coloring'>DeStress!</NavLink> */}
+                        </div>
                         </div>
                     )
                 }}/>

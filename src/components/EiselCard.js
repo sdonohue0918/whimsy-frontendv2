@@ -10,12 +10,12 @@ const EiselCard = (props) => {
 
         <div className='card'>
             <img className='cardImage' src={filePath} alt="no file here!"></img>
-            <h3><i>Title</i>{props.eisel.name}</h3>
+            <h3 className='cardTitle'>Title  : <i>       {props.eisel.name}</i></h3>
             <br></br>
-            <h3><i>Genre</i>{props.eisel.genre}</h3>
+            <h3 className='cardGenre'>Genre  :  <i>      {props.eisel.genre}</i></h3>
             <NavLink to={`/gallery/display/${props.eisel.id}`}>
 
-            <button>Full Page</button>
+            <button className='cardButton'>Full Screen Image</button>
             </NavLink>
         </div>
        </>

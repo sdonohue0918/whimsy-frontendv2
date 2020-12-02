@@ -7,7 +7,7 @@ const EiselShow = (props) => {
 
     useEffect(() => {
         likedEiselsByUser()
-    }, [])
+    }, [props.eisel])
 
     
     const clickDelete = () => {
@@ -39,14 +39,27 @@ const EiselShow = (props) => {
     
     return (
         <div>
+        
         <div className='showCard'>
             <img className='showCardImage' src={filepath}></img>
         </div>
+        
+        
+
+        
+        <div className='showDetailsDelete'>
+
             {props.currentUser.id === props.eisel.user_id ? <button style={{color: 'red'}} onClick={clickDelete}>Delete This Image</button> : null}
-       <div>
-           Likes : {props.eisel.likes.length}
+        </div>
+       <div className='showDetailsLike'>
+           <h5> Likes : {props.eisel.likes.length}</h5>
            {likedEisels ? <button onClick={clickUnlike}>Unlike</button> : <button onClick={clickLike}>Like</button>}
        </div>
+
+
+      
+        
+        
         </div>
     )
 

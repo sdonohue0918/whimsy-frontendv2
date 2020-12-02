@@ -1,59 +1,14 @@
-body {
+/* body {
   background-color: grey;
-}
+} */
 
-.redDiv {
-    width:100%;
-    height:90%;
-    background:red;
-}
 
-.greenDiv {
-  width:100%;
-    height:90%;
-    background:green;
-}
-
-.blueDiv {
-  width:100%;
-  height:90%;
-  background:blue;
-}
-
-.yellowDiv {
-  width:100%;
-  height:90%;
-  background: yellow;
-}
-
-.violetDiv {
-  width:100%;
-  height:90%;
-  background: violet;
-}
-
-.purpleDiv {
-  width:100%;
-  height:90%;
-  background: purple;
-}
-
-.blackDiv {
-  width:100%;
-  height:90%;
-  background: blacks;
-
-}
 
 .canvasBorder {
   width: 590px;
   height: 590px;
   border: 5px solid black;
   
-  
-
-
-
 }
 
 .canvas {
@@ -64,13 +19,15 @@ body {
 
 
 .card {
-  border: 2px solid #ca8b15;
+  border: 2px solid #050504;
   box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
   width: 25%;
   display: flex;
   flex-flow: row wrap;
-  flex-direction: row;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 5px;
   
   
 }
@@ -78,20 +35,38 @@ body {
 .cardImage {
   width: 250px;
   height: 250px;
+  border: 2px solid #ca8b15;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 50px;
+  margin-left: 100px;
   
+}
+
+.cardButton {
+  margin-left: 160px;
+}
+
+.cardTitle {
+  margin-left: 150px;
+}
+
+.cardGenre {
+  margin-left: 160px;
 }
 
 .showCard {
   width: 50%;
   border: 4px solid #ca8b15;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-left: 20%;
 }
 
 .showCardImage {
   width: 800px;
   height: 800px;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 
@@ -108,14 +83,34 @@ body {
 .artworkCard {
   width: 25%;
   border: 4px solid #ca8b15;
-  display: flex;
-  justify-content: center;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-left: 20%;
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 5px;
 }
 
 .artworkCardImage {
   width: 250px;
   height: 250px;
+  margin-top: 50px;
+  margin-left: 100px;
+  border: 4px solid #1f1e1d
+
+}
+
+.artworkCardDate {
+  margin-left: 180px;
+}
+
+.artworkCardName {
+  margin-left: 100px;
+}
+
+.artworkCardTitle {
+  margin-left: 80px;
 }
 
 .artworkShow {
@@ -130,23 +125,269 @@ body {
   width: 800px;
   height: 800px;
 }
-/* #eiselCardFlex {
 
-} */
-
-/* .column {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
+.galleryBackground {
+  height: 100%;
+  width: 100%;
+  background-image: url('https://i.pinimg.com/originals/99/62/7a/99627a7afff8e85fbb7a0ad81938487b.jpg');
+  background-size: cover;
+  position: fixed;
+  z-index: 1;
 }
 
-/* Remove extra left and right margins, due to padding in columns */
-/* .row {margin: 0 -5px;}
+#door {
+  position: fixed;
+  height: 30%;
+  width: 6%;
+  margin-top: 560px;
+  margin-left: 775px;
+}
 
-/* Clear floats after the columns */
-/* .row::after {
-  content: "";
-  display: table;
-  clear: both;
+#eisel {
+  position: fixed;
+  width: 10%;
+  margin-top: 450px;
+  margin-left: 10px;
+  transform: skewY(1deg) rotate(180deg) skewX(5deg);
+  
+  
+}
+
+#coloringBook {
+  position: fixed; 
+  height: 4%;
+  width: 3%;
+  margin-left: 990px;
+  margin-top: 570px;
+  
+
+}
+
+
+
+
+#pallete {
+  position: fixed;
+  width: 8%;
+  height: 5%;
+  margin-left: 868px;
+  margin-top: 875px;
+  transform: skewX(10deg) rotate(170deg);
+}
+
+#door:hover {
+  border: 4px solid #9ac9ca;
+}
+
+#eisel:hover {
+  border: 4px solid #9ac9ca;
+}
+
+#coloringBook:hover {
+  border: 4px solid #9ac9ca;
+}
+
+#pallete:hover {
+  border: 4px solid #9ac9ca;
+}
+
+
+
+
+
+#utensilBar {
+  position: fixed;
+  z-index: 1;
+  background-color: grey;
+  height: 100%;
+  width: 125px;
+}
+
+#eraseButton {
+  margin-left: 15px;
+  margin-top: 300px;
+}
+
+#opacitySlider {
+  width: 100px;
+}
+
+#strokeWidthSlider {
+  width: 100px;
+}
+
+#colorBar {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+#opacityContainer {
+  display: flex;
+  flex-wrap: wrap;
+  
+  margin-top: 200px;
+}
+
+#strokeWidthContainer {
+  display: flex;
+  flex-wrap: wrap;
+  
+  margin-top: 300px;
+}
+
+#eraser {
+  width: 100px;
+}
+
+#postCanvasContainer {
+  width: 300px;
+  margin-left: 125px;
+}
+
+#eiselform {
+  margin-top: 300px;
+  margin-left: 60px;
+}
+
+#eiselContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  margin-left: 150px;
+
+}
+
+
+.NavBar {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  color: grey
+}
+
+.NavLink {
+  display: inline;
+  color: white;
+}
+
+.NavLink:link {
+  color: white;
+}
+
+.NavLink:visited {
+  color: white;
+}
+
+#galleryFilterSelect {
+  margin-left: 1700px;
+  
+}
+
+/* .showDetailsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 } */
 
+.showDetailsLike {
+  margin-left: 880px;
+}
+
+.showDetailsDelete {
+  margin-left: 850px;
+}
+
+#signupBackground {
+  height: 100%;
+  width: 100%;
+  background-image: url('https://25.media.tumblr.com/tumblr_lsf7w5bUxO1qbdn8eo1_500.jpg');
+  background-size: cover;
+  position: fixed;
+}
+
+
+#signupContainer {
+  
+  border-radius: 2rem;
+  background-color: rgb(169, 192, 201);
+  margin-top: 100px;
+  display:flex;
+  flex-direction: column;
+  width: 50%;
+  height: 30%;
+  margin-left: 450px;
+}
+
+#signupForm {
+  display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.signupInput {
+  margin: 5px;
+  padding: 5px;
+  width: 25%;
+}
+
+.signupLabel {
+  display: inline-block;
+  text-align: right;
+
+}
+
+#signupButton {
+  margin: 15px;
+}
+
+#signupLoginLink {
+  margin-left: 350px;
+}
+
+#loginBackground {
+
+  height: 100%;
+  width: 100%;
+  background-image: url('https://i.redd.it/5uh5lqofi7451.jpg');
+  background-size: cover;
+  position: fixed;
+}
+
+#loginContainer {
+  border-radius: 2rem;
+  background-color: rgb(169, 192, 201);
+  margin-top: 100px;
+  display:flex;
+  flex-direction: column;
+  width: 25%;
+  height: 20%;
+  margin-left: 700px;
+  
+}
+
+#loginForm {
+  display: flex;
+	align-items: center;
+	justify-content: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.loginInput {
+  margin: 5px;
+  padding: 5px;
+  width: 25%;
+
+}
+
+.loginLabel {
+  display: inline-block;
+  text-align: right;
+
+}
+
+#loginButton {
+  margin: 15px;
+}

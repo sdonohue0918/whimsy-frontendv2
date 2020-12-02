@@ -16,7 +16,9 @@ const EiselTest = (props) => {
     const [lineProps, setLineProps] = useState({stroke: 'black',
                                         strokeWidth: 1,
                                         tension: 0.2,
-                                        lineCap: 'round'})
+                                        lineCap: 'round',
+                                        
+                                                })
     
     
     
@@ -26,6 +28,7 @@ const EiselTest = (props) => {
     const [strokeWidth, setStrokeWidth] = useState(1)
     const [tension, setTension] = useState(0.2)
     const [lineCap, setLineCap] = useState('round')
+    const [opacity, setOpacity] = useState(1)
 
     const [rawData, setRawData] = useState(null)
     const isDrawing = useRef(false) 
@@ -35,11 +38,7 @@ const EiselTest = (props) => {
     const [click, setClick] = useState(false)
     const [formClick, setFormClick] = useState(false)
     
-    
-    
-        // useEffect(() => {
-        //     handleSave()
-        // }, [setFormClick])
+
 
 
 
@@ -49,9 +48,9 @@ const EiselTest = (props) => {
 
         if (click) {
 
-            setLines([...lines, {  points: [pos.x, pos.y], stroke: 'white', strokeWidth: strokeWidth, tension: tension, lineCap: lineCap }]);
+            setLines([...lines, {  points: [pos.x, pos.y], stroke: 'white', strokeWidth: strokeWidth, tension: tension, lineCap: lineCap, opacity: opacity}]);
         } else {
-            setLines([...lines, {  points: [pos.x, pos.y], stroke: lineColor, strokeWidth: strokeWidth, tension: tension, lineCap: lineCap }])
+            setLines([...lines, {  points: [pos.x, pos.y], stroke: lineColor, strokeWidth: strokeWidth, tension: tension, lineCap: lineCap, opacity: opacity }])
         }
       };
 
@@ -106,7 +105,7 @@ const EiselTest = (props) => {
       }
 
       const formClickHandler = () => {
-        
+        handleSave()
         setFormClick(prevFormClick => !prevFormClick)
 
         
@@ -115,41 +114,48 @@ const EiselTest = (props) => {
     const eraseSelect = () => {
         return (
             <div>
-                <select id="eraseoptions" onChange={(evt) => {setStrokeWidth(evt.target.value)}}>
-                    <option value={2}>Small Eraser</option>
-                    <option value={4}>Mid Eraser</option>
-                    <option value={6}>Large Eraser</option>
-                </select>
+                <label for='eraser'>Set Eraser Width</label>
+                <input type='range' id='eraser' name='eraser' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
             </div>
         )
     } 
 
 
 
-
-    
-      
-      
-      
-      
-      
       
       
       return (
           <>
           
+        <div id='utensilBar'>
 
-        <div className='colorbar'>
-            <input type="color" onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
+        <div>
+
+        <NavLink to='/gallery/display'>Back to Gallery!</NavLink>
         </div>
         
-       <select id="strokeWidth" onChange={(evt) => {setStrokeWidth(evt.target.value)}}>
+        <div id='colorBar'>
+            <label for='colorPallette'>Color Pallette</label>
+            <input type="color" id='colorPallette' onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
+        </div>
+
+        <div id='opacityContainer'>
+            <label for='opacitySlider'>Set Opacity</label>
+            <input id="opacitySlider" type="range" name='opacity' min={0} max={1} step={0.1} onChange={(evt) => {setOpacity(evt.target.value)}}/>
+        </div>
+        
+        <div id='strokeWidthContainer'>
+            <label for='strokeWidthSlider'>Set Brush Width</label>
+            <input id='strokeWidthSlider' type='range' name='strokeWidth' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
+        </div>
+       
+       {/* <select id="strokeWidth" onChange={(evt) => {setStrokeWidth(evt.target.value)}}>
            <option value={1} selected>Small</option>
            <option value={2.5}>Mid</option>
            <option value={4}>Large</option>
-       </select>
+       </select> */}
        
-       <select id="tension" onChange={(evt) => {setTension(evt.target.value)}}>
+       {/* <select id="tension" onChange={(evt) => {setTension(evt.target.value)}}>
            <option value={0.2} selected>Less Curve</option>
            <option value={0.5}>More Curve</option>
            <option value={0.75}>Curvy</option>
@@ -159,8 +165,15 @@ const EiselTest = (props) => {
            <option value='round' selected>Round</option>
            <option value='square'>Square</option>
            <option value='butt'>Butted</option>
-       </select>
+       </select> */}
+       
+       <div id='eraseButton'>
+
        <button id="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
+       {click ? eraseSelect() : console.log('erase select not rendered')}
+       </div>
+       
+       </div>
        
           <div className='canvas'>
           <div className='canvasBorder'>
@@ -179,21 +192,25 @@ const EiselTest = (props) => {
                       <Rect height={590} width={590} fill='white'/>
 
                       
-                   {isDrawing ? lines.map((line, i) => (<Line key={i} points={line.points} stroke={line.stroke} strokeWidth={line.strokeWidth} tension={line.tension} lineCap={line.lineCap} />)) : console.log("check for errors")}
+                   {isDrawing ? lines.map((line, i) => (<Line key={i} points={line.points} stroke={line.stroke} strokeWidth={line.strokeWidth} tension={line.tension} lineCap={line.lineCap} opacity={line.opacity} />)) : console.log("check for errors")}
                   
                   
                   </Layer>
               </Stage>
                
-              {click ? eraseSelect() : console.log('erase select not rendered')}
+              {/* {click ? eraseSelect() : console.log('erase select not rendered')} */}
 
-        
-        <button onClick={formClickHandler}>POST CANVAS</button>
+        <div >
+
+        <button id='postCanvasContainer' onClick={formClickHandler}>POST CANVAS</button>
+        </div>
         
         
         {/* <button onClick={handleSave}>SAVE CANVAS</button> */}
         {formClick ? <NewEiselForm data={rawData} postEisel={props.postEisel} currentUser={props.currentUser}/> : console.log("error")}
-        <NavLink to='/gallery/display'>Back to Gallery!</NavLink>
+        
+        
+        
           </div>
           </div>
           </>

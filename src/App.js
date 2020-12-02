@@ -241,13 +241,23 @@ const removeLikeFromEisel = (likeObj) => {
                 )
               }}/>
   
-              <Route path='/signup'>
-                <Signup signup={postUserToAPI}/>
-              </Route>
+              <Route path='/signup' render={() =>{
+                return (
+                  <div>
+                    <Signup signup={postUserToAPI}/>
+                  </div>
+                )
+              }}/>
+                
   
-              <Route path='/login'>
-                <Login login={getCurrentUser}/>
-              </Route>
+              <Route path='/login' render={() => {
+                return (
+                  <div>
+                    <Login login={getCurrentUser}/>
+                  </div>
+                )
+              }}/>
+                
         
               </Switch>
       </div>

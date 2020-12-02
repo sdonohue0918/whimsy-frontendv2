@@ -1,11 +1,10 @@
 
-import {useEffect , useState} from 'react'
-import { render } from 'react-dom'
-import {connect} from 'react-redux'
-import {Switch, withRouter, Route} from 'react-router-dom'
-//import EiselCard from '../components/EiselCard'
+import {useState} from 'react'
+import {Switch, Route, NavLink} from 'react-router-dom'
 import GalleryFilters from '../components/GalleryFilters'
 import EiselShow from '../components/EiselShow'
+
+
 
 
 
@@ -14,11 +13,18 @@ const EiselsContainer = (props) => {
     const [filter, setFilter] = useState(null)
     
    
-    // const renderEisels = () => {
-
-    //     return props.eisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
-        
-    // }
+    const renderNavBar = () => {
+        return (
+            <div >
+                <ul className='NavBar'>
+                    <li className='NavLink'><NavLink to='/gallery'>Home</NavLink></li>
+                    <li className='NavLink'><NavLink to='/gallery/createeisel'>Create</NavLink></li>
+                    <li className='NavLink'><NavLink to='/coloring'>Destressor</NavLink></li>
+                    <li className='NavLink'><NavLink to='/museum'>Museum</NavLink></li>
+                </ul>
+            </div>
+        )
+    }
 
    return (
         <div>
@@ -40,7 +46,7 @@ const EiselsContainer = (props) => {
                 <Route path='/gallery/display' render={() => {
                     return (
                         <div>
-
+                        {renderNavBar()}
                         <GalleryFilters  eisels={props.eisels} artworks={props.artworks} currentUser={props.currentUser}/>
                         {/* {renderEisels()} */}
                         </div>
