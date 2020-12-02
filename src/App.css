@@ -18,6 +18,14 @@
 }
 
 
+
+.coloringPrintBorder {
+  width: 800px;
+  height: 800px;
+  border: 5px solid black;
+}
+
+
 .card {
   border: 2px solid #050504;
   box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -195,15 +203,15 @@
 
 
 
-#utensilBar {
+.utensilBar {
   position: fixed;
   z-index: 1;
   background-color: grey;
   height: 100%;
-  width: 125px;
+  width: 175px;
 }
 
-#eraseButton {
+.eraseButton {
   margin-left: 15px;
   margin-top: 300px;
 }
@@ -236,7 +244,7 @@
   margin-top: 300px;
 }
 
-#eraser {
+.eraser {
   width: 100px;
 }
 
@@ -390,4 +398,49 @@
 
 #loginButton {
   margin: 15px;
+}
+
+#museumBackground {
+  background-image: url('https://media.aedas.com/styles/mcrop/s3/Brighton-Dome-Art-Gallery9_UK_Martin-Charles__1.jpg?EWGAp1UGDTszTg2N5vygdZpVol7_k9p7');
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-size: cover;
+
+}
+
+#museumSearchContainer {
+  display: flex;
+	align-items: center;
+	justify-content: center;
+  flex-direction: row;
+  margin-top: 50px;
+  border-radius: 2rem;
+  background-color: rgb(219, 204, 69);
+  opacity: 0.8;
+  width: 50%;
+  height: 10%;
+  margin-left: 500px;
+  
+
+}
+
+#museumSearchInput {
+  margin: 60px;
+  width: 30%;
+}
+
+#museumSearchButton {
+  margin: 60px;
+}
+
+#museumTag {
+  
+  background-color: rgb(201, 199, 182);
+  position: fixed;
+  width: 14%;
+  height: 12%;
+  margin-top: 50px;
+  margin-left: 50px;
+  font-family: 'Snell Roundhand';
 }

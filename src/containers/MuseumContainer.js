@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import ArtworkCard from '../components/ArtworkCard'
-import MuseumFilter from '../components/MuseumFilter'
 import ArtworkShow from '../components/ArtworkShow'
 import {Route, Switch, NavLink} from 'react-router-dom'
 import { getSelectInput } from '../actions/actions'
@@ -10,13 +9,36 @@ import { getSelectInput } from '../actions/actions'
 const MuseumContainer = (props) => {
     
     const [objects, setObjects] = useState([])
+    const [works, setWorks] = useState(null)
     const [search, setSearch] = useState("")
-    const fetchSuccess = useRef(false)
+    const [fetchObjectsSuccess, setFetchObjectsSuccess] = useState(false)
+    const [fetchWorksSuccess, setFetchWorksSuccess] = useState(false)
     const searchRef = useRef()
-    const searchTimeout = useRef()
+    
+
+    const renderArtworks = () => {
+        //console.log(props.objects)
+        if (works.length > 0) {
+            return works.map(work => { return <ArtworkCard key={work.objectID} details={work}/>})
+        } else {
+            return (
+                <div>
+                    <h5>No Results Returned</h5>
+                </div>
+            )
+        }
+        
+    }
     
     
-    
+    const clickHandler = () => {
+        getMet()
+        
+    }
+
+    const curationReset = () => {
+
+    }
     
 
     const getMet = () => {
@@ -39,39 +61,55 @@ const MuseumContainer = (props) => {
         }
     
 
-    fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${newSearchTerm}`, config).then(resp => resp.json()).then(data => setObjects(data)).catch(error => console.log(error))
+    fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${newSearchTerm}`, config).then(resp => resp.json()).then(data => { 
+        setObjects(data)
+        setFetchObjectsSuccess(prevFetchObjectsSuccess => !prevFetchObjectsSuccess)
+    }).catch(error => console.log(error))
        
             
     }
-    
 
-    useEffect(() => {
-        searchRef.current = search
-        
-        
-        if (searchRef.current === search) {
-            searchTimeout.current = setTimeout(() => {
-                if (searchRef.current) {
-                    getMet()
+    const testGetMetObject = () => {
+        let config = {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
             }
-            }, 2000)
-
         }
         
+        let idList = []
         
+        for (let i = 0; i <= 20; i++) {
+            idList.push(objects.objectIDs[Math.floor(Math.random() * objects.objectIDs.length)])
+            
+        }
         
+        console.log(idList)
+        
+        let worksArray = []
+        
+        if (idList.length === 21) {
 
-        return (() => {
-            clearTimeout(searchTimeout.current)
-            fetchSuccess.current = true
-
-        })
+            for (let i = 0; i < idList.length; i++) {
+                fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${idList[i]}`, config).then(resp => resp.json()).then(data => {
+                worksArray.push(data)
+                
+               })
+            }
+        }
+        
+        setWorks(worksArray)
+        setFetchWorksSuccess(prevFetchWorksSuccess => !prevFetchWorksSuccess)
+    }
     
-    }, [searchRef])
+
+    
 
 
     console.log(search)
-    console.log(fetchSuccess)
+    console.log(works)
+    console.log(fetchObjectsSuccess)
+    console.log(fetchWorksSuccess)
     console.log(objects)
     
     
@@ -82,18 +120,50 @@ const MuseumContainer = (props) => {
         <div>
             <Switch>
                 
-                <Route path='/museum' render={() => {
+                {/* <Route to='/museum/:id' render={(routerProps) => {
+                    let work
+                    if (works.length > 0) {
+                    let id = parseInt(routerProps.match.params.id)
+                    work = works.find(work => work.objectID === id)
+                    }
 
                     return (
                     <div>
+                        {work ? <ArtworkShow details={work} postWork={props.postWork}/> : null}
+                    </div>
+                 )
+                    }}/> */}
+
+
+
+
+                
+                <Route path='/museum' render={() => {
+
+                    return (
+                    
+                    <div >
+                    
+                    
+                    <div id='museumBackground'>
+
+                        <div id='museumTag'>
+                            <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>
+                        </div>
                         
-                        
-                        <input ref={searchRef} type="text" name="search" placeholder="Search for Art Here" value={search} onChange={(evt) => setSearch(evt.target.value)}></input>
+                        <div id='museumSearchContainer'>
+                        <input id='museumSearchInput' ref={searchRef} type="text" name="search" placeholder="Search for Art Here" value={search} onChange={(evt) => setSearch(evt.target.value)}></input>
                         {/* {works.length > 0 ? works.current.map(work => { return <ArtworkCard  details={work}/>}) : <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>}
                         {/* {objects.length > 0 ? <button onClick={testGetMetObject}>See Curated Findings</button> : null} */}
                         {/* <button onClick={testGetMetObject}>See Curated Findings!</button>  */}
-                        {objects !== [] ? <MuseumFilter objects={objects} postWork={props.postWork}/> : <div><h5>Search for Famous Pieces By Tag!</h5> </div> }
+                        <button id='museumSearchButton' onClick={clickHandler}>Get Curated Findings</button>
+                        <button onClick={curationReset}>X</button>
+                        </div>
                        
+                    </div>
+                    
+                    
+                    
                     </div>
                     )
                     

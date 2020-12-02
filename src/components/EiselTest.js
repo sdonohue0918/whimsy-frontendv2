@@ -127,7 +127,7 @@ const EiselTest = (props) => {
       return (
           <>
           
-        <div id='utensilBar'>
+        <div className='utensilBar'>
 
         <div>
 
@@ -136,7 +136,7 @@ const EiselTest = (props) => {
         
         <div id='colorBar'>
             <label for='colorPallette'>Color Pallette</label>
-            <input type="color" id='colorPallette' onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
+            <input type="color" id='colorPallette' onChange={(evt) => { setLineColor(`${evt.target.value}`)}}></input>
         </div>
 
         <div id='opacityContainer'>
@@ -149,27 +149,11 @@ const EiselTest = (props) => {
             <input id='strokeWidthSlider' type='range' name='strokeWidth' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
         </div>
        
-       {/* <select id="strokeWidth" onChange={(evt) => {setStrokeWidth(evt.target.value)}}>
-           <option value={1} selected>Small</option>
-           <option value={2.5}>Mid</option>
-           <option value={4}>Large</option>
-       </select> */}
        
-       {/* <select id="tension" onChange={(evt) => {setTension(evt.target.value)}}>
-           <option value={0.2} selected>Less Curve</option>
-           <option value={0.5}>More Curve</option>
-           <option value={0.75}>Curvy</option>
-       </select>
        
-       <select id="linecap" onChange={(evt) => {setLineCap(evt.target.value)}}>
-           <option value='round' selected>Round</option>
-           <option value='square'>Square</option>
-           <option value='butt'>Butted</option>
-       </select> */}
-       
-       <div id='eraseButton'>
+       <div className='eraseButton'>
 
-       <button id="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
+       <button className="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
        {click ? eraseSelect() : console.log('erase select not rendered')}
        </div>
        

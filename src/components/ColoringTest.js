@@ -17,6 +17,7 @@ const ColoringTest = () => {
     const [strokeWidth, setStrokeWidth] = useState(1)
     const [tension, setTension] = useState(0.2)
     const [lineCap, setLineCap] = useState('round')
+    const [opacity, setOpacity] = useState(1)
     const isDrawing = useRef(false) 
     const eiselStage = useRef()
     const targetLayer = useRef()
@@ -34,9 +35,9 @@ const ColoringTest = () => {
 
         if (click) {
 
-            setLines([...lines, {  points: [pos.x, pos.y], stroke: 'white', strokeWidth: strokeWidth, tension: tension, lineCap: lineCap }]);
+            setLines([...lines, {  points: [pos.x, pos.y], stroke: 'white', strokeWidth: strokeWidth, tension: tension, lineCap: lineCap, opacity: opacity }]);
         } else {
-            setLines([...lines, {  points: [pos.x, pos.y], stroke: lineColor, strokeWidth: strokeWidth, tension: tension, lineCap: lineCap }])
+            setLines([...lines, {  points: [pos.x, pos.y], stroke: lineColor, strokeWidth: strokeWidth, tension: tension, lineCap: lineCap, opacity: opacity }])
         }
       };
 
@@ -74,6 +75,14 @@ const ColoringTest = () => {
       
     }
 
+    const eraseSelect = () => {
+        return (
+            <div>
+                <label for='eraser'>Set Eraser Width</label>
+                <input type='range' id='eraser' name='eraser' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
+            </div>
+        )
+    } 
 
     
     
@@ -83,30 +92,13 @@ const ColoringTest = () => {
     
       return (
           
-        <div>
-            <div className='colorbar'>
-            <input type="color" onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
-        </div>
-        
-       <select id="strokeWidth" onChange={(evt) => {setStrokeWidth(evt.target.value)}}>
-           <option value={1} selected>Small</option>
-           <option value={2.5}>Mid</option>
-           <option value={4}>Large</option>
-       </select>
-       
-       <select id="tension" onChange={(evt) => {setTension(evt.target.value)}}>
-           <option value={0.2} selected>Less Curve</option>
-           <option value={0.5}>More Curve</option>
-           <option value={0.75}>Curvy</option>
-       </select>
-       
-       <select id="linecap" onChange={(evt) => {setLineCap(evt.target.value)}}>
-           <option value='round' selected>Round</option>
-           <option value='square'>Square</option>
-           <option value='butt'>Butted</option>
-       </select>
-       <button id="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
-       <select id="printSelct" onChange={(evt) => {setPrint(evt.target.value)}}>
+          <>
+
+        <div className='utensilBar'>
+          
+          
+          <div>
+          <select id="printSelct" onChange={(evt) => {setPrint(evt.target.value)}}>
             <option value='http://127.0.0.1:8081/coloring-page-adult-zen-stormtrooper-by-allan.jpg'>Psychedelic Stormtrooper</option>
             <option value='http://127.0.0.1:8081/coloring-mandala-heather-hinson-1.jpg'>Flower</option>
             <option value='http://127.0.0.1:8081/coloring-mandala-metal-vegetal.jpg'>Metal Flower</option>
@@ -114,12 +106,36 @@ const ColoringTest = () => {
             <option value='http://127.0.0.1:8081/coloring-page-adult-fox-mountain-forest-by-allan.jpg'>Mountain Fox</option>
             <option value='http://127.0.0.1:8081/coloring-page-musician-playing-the-saxophone.jpg'>Saxophonist</option>
             <option value='http://127.0.0.1:8081/coloring-whimsical-background.jpg'>Many Flowers</option>
-       </select>
+         </select>
+          </div>
         
         
+        <div>
+            <div className='colorbar'>
+            <input type="color" onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
+        </div>
+
+        <div id='opacityContainer'>
+            <label for='opacitySlider'>Set Opacity</label>
+            <input id="opacitySlider" type="range" name='opacity' min={0} max={1} step={0.1} onChange={(evt) => {setOpacity(evt.target.value)}}/>
+        </div>
+        
+        <div id='strokeWidthContainer'>
+            <label for='strokeWidthSlider'>Set Brush Width</label>
+            <input id='strokeWidthSlider' type='range' name='strokeWidth' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
+        </div>
+        
+       
+
+
+       <button id="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
+       {click ? eraseSelect() : console.log('erase select not rendered')}
+       
+       </div>
+       </div>
         
         <div className='canvas'>
-        <div className='canvasBorder'>
+        <div className='coloringPrintBorder'>
             <Stage width={stageProps.height} height={stageProps.width}
             onMouseDown={handleMouseDown}
             onMousemove={handleMouseMove}
@@ -137,7 +153,10 @@ const ColoringTest = () => {
             </Stage >
         </div>
         </div>
-        </div>
+        
+
+        
+        </>
     )
 }
 
