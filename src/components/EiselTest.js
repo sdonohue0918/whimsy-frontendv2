@@ -113,8 +113,8 @@ const EiselTest = (props) => {
 
     const eraseSelect = () => {
         return (
-            <div>
-                <label for='eraser'>Set Eraser Width</label>
+            <div id='eraserContainer'>
+                <label className='colorBarLabel' for='eraser'>Set Eraser Width</label>
                 <input type='range' id='eraser' name='eraser' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
             </div>
         )
@@ -126,7 +126,7 @@ const EiselTest = (props) => {
       
       return (
           <>
-          
+        <div id='eiselTestBackground'>
         <div className='utensilBar'>
 
         <div>
@@ -135,17 +135,17 @@ const EiselTest = (props) => {
         </div>
         
         <div id='colorBar'>
-            <label for='colorPallette'>Color Pallette</label>
+            <label className='colorBarLabel' for='colorPallette'>Color Pallette</label>
             <input type="color" id='colorPallette' onChange={(evt) => { setLineColor(`${evt.target.value}`)}}></input>
         </div>
 
         <div id='opacityContainer'>
-            <label for='opacitySlider'>Set Opacity</label>
+            <label className='colorBarLabel' for='opacitySlider'>Set Opacity</label>
             <input id="opacitySlider" type="range" name='opacity' min={0} max={1} step={0.1} onChange={(evt) => {setOpacity(evt.target.value)}}/>
         </div>
         
         <div id='strokeWidthContainer'>
-            <label for='strokeWidthSlider'>Set Brush Width</label>
+            <label className='colorBarLabel' for='strokeWidthSlider'>Set Brush Width</label>
             <input id='strokeWidthSlider' type='range' name='strokeWidth' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
         </div>
        
@@ -195,6 +195,7 @@ const EiselTest = (props) => {
         
         
         
+          </div>
           </div>
           </div>
           </>

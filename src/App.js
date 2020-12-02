@@ -18,9 +18,6 @@ import React from 'react'
     const [artworks, setArtWorks] = useState([])
     const [users, setAppUsers] = useState([])
     const [currentUser, setCurrentUser] = useState(null)
-    
-  
-  
     const history = useHistory()
 
 
@@ -39,15 +36,19 @@ import React from 'react'
     //console.log(workObj)
     let data = new FormData()
       data.append('artwork[user_id]', currentUser.id)
-      data.append('artwork[MET_ID]', workObj.objectID)
+      data.append('artwork[objectID]', workObj.objectID)
       data.append('artwork[title]', workObj.title)
-      data.append('artwork[image_link]', workObj.primaryImage)
-      data.append('artwork[artist_name]', workObj.artistDisplayName)
-      data.append('artwork[date_made]', workObj.objectDate)
+      data.append('artwork[primaryImage]', workObj.primaryImage)
+      data.append('artwork[artistDisplayName]', workObj.artistDisplayName)
+      data.append('artwork[objectDate]', workObj.objectDate)
       data.append('artwork[medium]', workObj.medium)
       data.append('artwork[country_of_origin]', workObj.country)
       data.append('artwork[region]', workObj.region)
       data.append('artwork[kind]', workObj.objectName)
+
+    //   "primaryImage"
+    // t.string "artistDisplayName"
+    // t.string "objectDate"
 
     let config = {
       method: "POST",
@@ -112,14 +113,7 @@ import React from 'react'
 
   }
   
-// const getFilterEisels = () => {
-//   if (selectInput === "allEisels") {
-//     return eisels
-//   } else if (selectInput === "userOnly") {
-//     let currentUserEisels = eisels.filter(eisel => eisel.user_id === currentUser.id)
-//     return currentUserEisels
-//   } 
-// }
+
 
 const deleteEisel = (eiselObj) => {
   let eiselsAfterDelete = eisels.filter(eisel => eisel.id !== eiselObj.id)
@@ -193,7 +187,7 @@ const removeLikeFromEisel = (likeObj) => {
     
 }
 
-  console.log(eisels)
+  
 
     return (
       <div className="App">
@@ -269,6 +263,7 @@ const removeLikeFromEisel = (likeObj) => {
 
 }
 
+export default App
 // const mapStateToProps = (state) => {
 //   return {
 //     width: state.width,
@@ -298,7 +293,7 @@ const removeLikeFromEisel = (likeObj) => {
 // }
 // }
 
-export default App
+
 
 
 // export default connect(mapStateToProps, mapDispatchToProps)(App);

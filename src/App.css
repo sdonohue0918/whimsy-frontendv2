@@ -50,8 +50,12 @@
   
 }
 
-.cardButton {
-  margin-left: 160px;
+.lineTitle {
+  margin-left: 150px;
+}
+
+.lineGenre {
+  margin-left: 150px;
 }
 
 .cardTitle {
@@ -63,18 +67,25 @@
 }
 
 .showCard {
-  width: 50%;
+  width: 801px;
+  height: 801px;
   border: 4px solid #ca8b15;
   box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-around;
-  margin-left: 20%;
+  margin-left: 28%;
 }
 
 .showCardImage {
   width: 800px;
   height: 800px;
   box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.eiselShowDelete {
+  margin: 30px;
+  margin-left: 15px;
+  width: 20%;
 }
 
 
@@ -217,7 +228,7 @@
 .utensilBar {
   position: fixed;
   z-index: 1;
-  background-color: grey;
+  background-color: rgb(163, 161, 161);
   height: 100%;
   width: 175px;
 }
@@ -228,35 +239,53 @@
 }
 
 #opacitySlider {
-  width: 100px;
+  width: 150px;
 }
 
 #strokeWidthSlider {
-  width: 100px;
+  width: 150px;
+}
+
+#eiselTestBackground {
+  background-color: lavender;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+
 }
 
 #colorBar {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
   
+}
+
+.colorBarLabel {
+  font-family: 'Marker Felt'
 }
 
 #opacityContainer {
   display: flex;
   flex-wrap: wrap;
-  
+  flex-direction: column;
+  align-items: center;
   margin-top: 200px;
 }
 
 #strokeWidthContainer {
   display: flex;
   flex-wrap: wrap;
-  
+  flex-direction: column;
+  align-items: center;
   margin-top: 300px;
 }
 
 .eraser {
   width: 100px;
+  margin-left: 20px;
 }
 
 #postCanvasContainer {
@@ -265,15 +294,31 @@
 }
 
 #eiselform {
-  margin-top: 300px;
-  margin-left: 60px;
+  /* margin-top: 250px;
+  margin-left: 60px; */
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5px;
+  margin-left: 25px;
 }
 
-#eiselContainer {
+.eiselformInputs {
+  margin: 10px;
+  width: 200px;
+}
+
+
+#eiselformContainer {
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
-  margin-left: 150px;
+  margin-left: 125px;
+  background-color: skyblue;
+  width: 290px;
+  height: 200px;
 
 }
 
@@ -299,6 +344,7 @@
 }
 
 #galleryFilterSelect {
+  position: fixed;
   margin-left: 1700px;
   
 }

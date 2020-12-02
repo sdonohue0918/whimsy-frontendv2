@@ -3,6 +3,7 @@ import {useState} from 'react'
 import {Switch, Route, NavLink} from 'react-router-dom'
 import GalleryFilters from '../components/GalleryFilters'
 import EiselShow from '../components/EiselShow'
+import ArtworkShow from '../components/ArtworkShow'
 
 
 
@@ -30,6 +31,28 @@ const EiselsContainer = (props) => {
         <div>
             
             <Switch>
+                
+                <Route path='/gallery/display/artwork/:workid' render={(routerProps) => {
+                    let work
+                    if (props.artworks.length > 0) {
+                        let id = parseInt(routerProps.match.params.workid)
+                        work = props.artworks.find(work => work.objectID === id)
+                    }
+
+                    return (
+                        <div>
+                            { work ? <ArtworkShow currentUser={props.currentUser} details={work}/> : null}
+                        </div>
+                    )
+                }}/>
+                
+                
+                
+                
+                
+                
+                
+                
                 <Route path='/gallery/display/:id' render={(routerProps) => {
                     let eisel
                     if (props.eisels.length > 0) {
@@ -43,12 +66,14 @@ const EiselsContainer = (props) => {
                     )
                 }}/>
 
+                
+
                 <Route path='/gallery/display' render={() => {
                     return (
                         <div>
                         {renderNavBar()}
                         <GalleryFilters  eisels={props.eisels} artworks={props.artworks} currentUser={props.currentUser}/>
-                        {/* {renderEisels()} */}
+                        
                         </div>
                         )
                 }}/>

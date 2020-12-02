@@ -30,15 +30,15 @@ const NewEiselForm = (props) => {
     
     return (
         <div>
-            <div id='eiselContainer'>
+            <div id='eiselformContainer'>
 
             <form id='eiselform' ref={eiselform}>
-                <input type="text"  name='eisel[name]' value={eiselname} placeholder='Give it a name!' onChange={evt => setEiselName(evt.target.value)}/>
-                <input type="text"  name='eisel[genre]' value={eiselgenre} placeholder="what's its style?" onChange={evt => setEiselGenre(evt.target.value)}/>
-                <input type="integer"  name='eisel[user_id]' value={props.currentUser.id} hidden readOnly/>
+                <input className='eiselformInputs' type="text"  name='eisel[name]' value={eiselname} placeholder='Give it a name!' onChange={evt => setEiselName(evt.target.value)}/>
+                <input className='eiselformInputs' type="text"  name='eisel[genre]' value={eiselgenre} placeholder="what's its style?" onChange={evt => setEiselGenre(evt.target.value)}/>
+                <input className='eiselformInputs' type="integer"  name='eisel[user_id]' value={props.currentUser.id} hidden readOnly/>
                 
                 <button onClick={handlePost}>Submit Your Creation!</button>
-                </form>
+            </form>
             </div>
                 
                 

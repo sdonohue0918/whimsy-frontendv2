@@ -33,7 +33,16 @@ const EiselShow = (props) => {
     }
 
     
-
+    const renderLikeFeature = () => {
+        return (
+            <div>
+                <div className='showDetailsLike'>
+                    <h5> Likes : {props.eisel.likes.length}</h5>
+                    {likedEisels ? <button onClick={clickUnlike}>Unlike</button> : <button onClick={clickLike}>Like</button>}
+                </div>
+            </div>
+        )
+    }
 
     
     
@@ -49,12 +58,10 @@ const EiselShow = (props) => {
         
         <div className='showDetailsDelete'>
 
-            {props.currentUser.id === props.eisel.user_id ? <button style={{color: 'red'}} onClick={clickDelete}>Delete This Image</button> : null}
+            {props.currentUser.id === props.eisel.user_id ? <button style={{color: 'red'}} className='eiselShowDelete' onClick={clickDelete}>Delete This Image</button> : null}
         </div>
-       <div className='showDetailsLike'>
-           <h5> Likes : {props.eisel.likes.length}</h5>
-           {likedEisels ? <button onClick={clickUnlike}>Unlike</button> : <button onClick={clickLike}>Like</button>}
-       </div>
+        
+            {props.currentUser.id !== props.eisel.user_id ? renderLikeFeature() : null}
 
 
       

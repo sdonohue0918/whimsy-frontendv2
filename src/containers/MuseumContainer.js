@@ -19,7 +19,7 @@ const MuseumContainer = (props) => {
     const renderArtworks = () => {
         //console.log(props.objects)
         if (works.length > 0) {
-            return works.map(work => { return <ArtworkCard key={work.objectID} details={work}/>})
+            return works.map(work => { return <ArtworkCard key={work.objectID} details={work} postWork={props.postWork}/>})
         } else {
             return (
                 <div>
@@ -31,9 +31,13 @@ const MuseumContainer = (props) => {
     }
     
     
-    const clickHandler = () => {
-        getMet()
-        
+    const fetchObjectsClick = () => {
+            getMet()
+    }
+
+    const fetchWorksClick = () => {
+        testGetMetObject()
+    
     }
 
     const curationReset = () => {
@@ -72,86 +76,41 @@ const MuseumContainer = (props) => {
             
     }
 
-    // const testGetMetObject = () => {
-    //     let config = {
-    //         method: "GET",
-    //         headers: {
-    //             "content-type": "application/json"
-    //         }
-    //     }
-        
-    //     let idList = []
-        
-    //     for (let i = 0; i <= 20; i++) {
-    //         idList.push(objects.objectIDs[Math.floor(Math.random() * objects.objectIDs.length)])
-            
-    //     }
-        
-    //     console.log(idList)
-        
-    //     let worksArray = []
-        
-    //     if (idList.length === 21) {
-
-    //         for (let i = 0; i < idList.length; i++) {
-    //             fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${idList[i]}`, config).then(resp => resp.json()).then(data => {
-    //             worksArray.push(data)
-                
-    //            })
-    //         }
-    //     }
-        
-    //     setWorks(worksArray)
-    //     setFetchWorksSuccess(prevFetchWorksSuccess => !prevFetchWorksSuccess)
-    // }
-    
-
-    
-    useEffect(() => {
-        const testGetMetObject = () => {
-            let config = {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json"
-                }
-            }
-            
-            let idList = []
-            
-            for (let i = 0; i <= 20; i++) {
-                idList.push(objects.objectIDs[Math.floor(Math.random() * objects.objectIDs.length)])
-                
-            }
-            
-            console.log(idList)
-            
-            let worksArray = []
-            
-            if (idList.length === 21) {
-    
-                for (let i = 0; i < idList.length; i++) {
-                    fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${idList[i]}`, config).then(resp => resp.json()).then(data => {
-                    worksArray.push(data)
-                    
-                   })
-                }
-            }
-            
-            setWorks(worksArray)
-            setFetchWorksSuccess(prevFetchWorksSuccess => !prevFetchWorksSuccess)
-        }
-
-        const switchState = () => {
-            if (fetchObjectsSuccess) {
-                testGetMetObject()
-            } else {
-                return
+    const testGetMetObject = () => {
+        let config = {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
             }
         }
+        
+        let idList = []
+        
+        for (let i = 0; i <= 20; i++) {
+            idList.push(objects.objectIDs[Math.floor(Math.random() * objects.objectIDs.length)])
+            
+        }
+        
+        
+        
+        let worksArray = []
+        
+        if (idList.length === 21) {
 
-        switchState()
+            for (let i = 0; i < idList.length; i++) {
+                fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${idList[i]}`, config).then(resp => resp.json()).then(data => {
+                worksArray.push(data)
+                
+               })
+            }
+        }
+        
+        setWorks(worksArray)
+        setFetchWorksSuccess(prevFetchWorksSuccess => !prevFetchWorksSuccess)
+    }
 
-    }, [objects])
+    
+    
 
     console.log(search)
     console.log(works)
@@ -165,35 +124,23 @@ const MuseumContainer = (props) => {
         
         
         <div>
-            <Switch>
+            
                 
-                {/* <Route to='/museum/:id' render={(routerProps) => {
-                    let work
-                    if (works.length > 0) {
-                    let id = parseInt(routerProps.match.params.id)
-                    work = works.find(work => work.objectID === id)
-                    }
-
-                    return (
-                    <div>
-                        {work ? <ArtworkShow details={work} postWork={props.postWork}/> : null}
-                    </div>
-                 )
-                    }}/> */}
+            
 
 
 
 
                 
-                <Route path='/museum' render={() => {
+                
 
-                    return (
+                    
                     
                     <div >
                     
                     
                     <div id='museumBackground'>
-
+                        <NavLink to='/gallery'>Home</NavLink>
                         <div id='museumTag'>
                             <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>
                         </div>
@@ -203,8 +150,8 @@ const MuseumContainer = (props) => {
                         {/* {works.length > 0 ? works.current.map(work => { return <ArtworkCard  details={work}/>}) : <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>}
                         {/* {objects.length > 0 ? <button onClick={testGetMetObject}>See Curated Findings</button> : null} */}
                         {/* <button onClick={testGetMetObject}>See Curated Findings!</button>  */}
-                        <button id='museumSearchButton' onClick={clickHandler}>Get Curated Findings</button>
-                        <button onClick={curationReset}>X</button>
+                        {!fetchObjectsSuccess ? <button id='museumSearchButton' onClick={fetchObjectsClick}>Get Curated Findings</button> : <button id='museumSearchButton' onClick={fetchWorksClick}>See Findings!</button>}
+                        {fetchWorksSuccess ? <button onClick={curationReset}>X</button> : null}
                         </div>
                        
                         <div id='artworkCardWrapper'>
@@ -214,15 +161,11 @@ const MuseumContainer = (props) => {
                        </div>
                     </div>
                     
-                    
-                    
                     </div>
-                    )
                     
-                    }}/>
 
                 
-            </Switch>
+           
         </div>
     )
 
