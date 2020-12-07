@@ -57,9 +57,9 @@ const GalleryFilters = (props) => {
     
     return (
         <div>
-            <div id="galleryFilterSelect">
+            <div id='galleryFilterSelectTab'>
 
-            <select ref={selectRef} onChange={(evt) => setSelectValue(evt.target.value)} value={selectValue}>
+            <select id="galleryFilterSelect" ref={selectRef} onChange={(evt) => setSelectValue(evt.target.value)} value={selectValue}>
                 <option value="allEisels">All User Creations</option>
                 <option value="userOnly" >My Eisels</option>
                 <option value="likedEisels">My Liked Eisels</option>

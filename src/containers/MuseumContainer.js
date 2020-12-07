@@ -140,7 +140,7 @@ const MuseumContainer = (props) => {
                     
                     
                     <div id='museumBackground'>
-                        <NavLink to='/gallery'>Home</NavLink>
+                        {/* <NavLink to='/gallery'>Home</NavLink> */}
                         <div id='museumTag'>
                             <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>
                         </div>

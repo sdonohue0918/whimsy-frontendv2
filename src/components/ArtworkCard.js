@@ -30,10 +30,12 @@ const ArtworkCard = (props) => {
                         <div>
                             
                             <div>
-                                <div className='artworkCard' >
+                                <div className='card' >
+                                
+                                <button className='artworkCardButton' onClick={redirect}>Full Page</button>
             
-                                <img className='artworkCardImage' onClick={postHandler} src={props.details.primaryImage} alt='not available'></img>
-                                <button onClick={redirect}>Full Screen Image</button>
+                                <img className='cardImage' onClick={postHandler} src={props.details.primaryImage} alt='not available'></img>
+                                
             
                                 </div>
                             </div>

@@ -134,17 +134,17 @@ const EiselTest = (props) => {
         <NavLink to='/gallery/display'>Back to Gallery!</NavLink>
         </div>
         
-        <div id='colorBar'>
+        <div className='colorBar'>
             <label className='colorBarLabel' for='colorPallette'>Color Pallette</label>
             <input type="color" id='colorPallette' onChange={(evt) => { setLineColor(`${evt.target.value}`)}}></input>
         </div>
 
-        <div id='opacityContainer'>
+        <div className='opacityContainer'>
             <label className='colorBarLabel' for='opacitySlider'>Set Opacity</label>
             <input id="opacitySlider" type="range" name='opacity' min={0} max={1} step={0.1} onChange={(evt) => {setOpacity(evt.target.value)}}/>
         </div>
         
-        <div id='strokeWidthContainer'>
+        <div className='strokeWidthContainer'>
             <label className='colorBarLabel' for='strokeWidthSlider'>Set Brush Width</label>
             <input id='strokeWidthSlider' type='range' name='strokeWidth' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
         </div>

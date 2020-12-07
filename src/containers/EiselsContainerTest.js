@@ -71,9 +71,10 @@ const EiselsContainer = (props) => {
                 <Route path='/gallery/display' render={() => {
                     return (
                         <div>
-                        {renderNavBar()}
+                            <div id='eiselContainerBackground'>
+                        {/* {renderNavBar()} */}
                         <GalleryFilters  eisels={props.eisels} artworks={props.artworks} currentUser={props.currentUser}/>
-                        
+                            </div>
                         </div>
                         )
                 }}/>

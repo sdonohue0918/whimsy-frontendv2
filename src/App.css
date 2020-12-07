@@ -26,16 +26,32 @@
 }
 
 
+#eiselContainerBackground {
+  background-image: url('https://live.staticflickr.com/216/478083244_b417c1badd_b.jpg');
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  position: fixed;
+  
+}
+
+#eiselContainer {
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+  flex-wrap: column;
+}
+
 .card {
-  border: 2px solid #050504;
-  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* border: 2px solid #050504;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2); */
   transition: 0.2s;
   width: 25%;
   display: flex;
   flex-flow: row wrap;
   flex-direction: column;
   flex-wrap: wrap;
-  margin: 5px;
+  margin: 10px;
   
   
 }
@@ -69,23 +85,24 @@
 .showCard {
   width: 801px;
   height: 801px;
-  border: 4px solid #ca8b15;
+  border: 10px solid #ca8b15;
   box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: space-around;
+  display: fixed;
+  justify-content: center;
   margin-left: 28%;
 }
 
 .showCardImage {
-  width: 800px;
-  height: 800px;
-  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 815px;
+  height: 815px;
+  display: fixed;
+  
 }
 
 .eiselShowDelete {
-  margin: 30px;
-  margin-left: 15px;
-  width: 20%;
+  
+  
+  width: 100%;
 }
 
 
@@ -129,6 +146,13 @@
   height: 250px;
   border: 4px solid #1f1e1d
 
+}
+
+.artworkCardButton {
+  font-family: 'Snell Roundhand';
+  width: 100px;
+  margin-left: 180px;
+  
 }
 
 .artworkCardDate {
@@ -238,6 +262,14 @@
   margin-top: 300px;
 }
 
+/* #eraserContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+
+} */
+
 #opacitySlider {
   width: 150px;
 }
@@ -254,7 +286,14 @@
 
 }
 
-#colorBar {
+#coloringTestBackground {
+  background-color: seagreen;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.colorBar {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -267,7 +306,7 @@
   font-family: 'Marker Felt'
 }
 
-#opacityContainer {
+.opacityContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -275,7 +314,7 @@
   margin-top: 200px;
 }
 
-#strokeWidthContainer {
+.strokeWidthContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -343,9 +382,23 @@
   color: white;
 }
 
-#galleryFilterSelect {
+/* #galleryFilterSelectTab {
+  background-color: gold;
   position: fixed;
+  width: 210px;
+  height: 100px;
   margin-left: 1700px;
+  z-index: -1;
+} */
+
+
+#galleryFilterSelect {
+  position: absolute;
+  margin-left: 1900px;
+  width: 150px;
+  height: 315px;
+  z-index: 1;
+  
   
 }
 
@@ -377,7 +430,7 @@
   border-radius: 2rem;
   background-color: rgb(169, 192, 201);
   margin-top: 100px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   width: 50%;
   height: 30%;
@@ -395,11 +448,13 @@
   margin: 5px;
   padding: 5px;
   width: 25%;
-}
+  font-family: 'Marker Felt';
+} 
 
 .signupLabel {
   display: inline-block;
   text-align: right;
+  font-family: 'Marker Felt'
 
 }
 
@@ -409,6 +464,7 @@
 
 #signupLoginLink {
   margin-left: 350px;
+  font-family: 'Marker Felt';
 }
 
 #loginBackground {
@@ -437,13 +493,14 @@
 	align-items: center;
 	justify-content: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .loginInput {
-  margin: 5px;
+  margin: 10px;
   padding: 5px;
-  width: 25%;
+  width: 50%;
+  font-family: 'Marker Felt';
 
 }
 
@@ -485,10 +542,12 @@
 #museumSearchInput {
   margin: 60px;
   width: 30%;
+  font-family: 'Snell Roundhand';
 }
 
 #museumSearchButton {
   margin: 60px;
+  font-family: 'Snell Roundhand';
 }
 
 #museumTag {
@@ -499,5 +558,61 @@
   height: 12%;
   margin-top: 50px;
   margin-left: 50px;
+  font-family: 'Snell Roundhand';
+}
+
+.detailsTab {
+  background-color: gold;
+  
+  position: fixed;
+  width: 820px;
+  height: 200px;
+  font-family: 'cursive';
+  margin-left: 575px;
+  margin-top: 10px;
+
+}
+
+.detailsBackground {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  position: fixed;
+}
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5px;
+}
+
+.artDetailsTabOne {
+  background-color: gold;
+  
+  position: fixed;
+  width: 420px;
+  height: 180px;
+  margin-top: 50px;
+  margin-left: 570px;
+}
+
+.artDetailsTabTwo {
+  background-color: gold;
+
+  position: fixed;
+  width: 425px;
+  height: 180px;
+  margin-top: 50px;
+  margin-left: 970px;
+}
+
+.artDetail {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1px;
   font-family: 'Snell Roundhand';
 }

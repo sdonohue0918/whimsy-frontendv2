@@ -37,7 +37,7 @@ const NewEiselForm = (props) => {
                 <input className='eiselformInputs' type="text"  name='eisel[genre]' value={eiselgenre} placeholder="what's its style?" onChange={evt => setEiselGenre(evt.target.value)}/>
                 <input className='eiselformInputs' type="integer"  name='eisel[user_id]' value={props.currentUser.id} hidden readOnly/>
                 
-                <button onClick={handlePost}>Submit Your Creation!</button>
+                <button className='eiselformInputs' onClick={handlePost}>Submit Your Creation!</button>
             </form>
             </div>
                 

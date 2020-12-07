@@ -77,8 +77,8 @@ const ColoringTest = () => {
 
     const eraseSelect = () => {
         return (
-            <div>
-                <label for='eraser'>Set Eraser Width</label>
+            <div id='eraserContainer'>
+                <label className='colorBarLabel' for='eraser'>Set Eraser Width</label>
                 <input type='range' id='eraser' name='eraser' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
             </div>
         )
@@ -93,12 +93,12 @@ const ColoringTest = () => {
       return (
           
           <>
-
+        <div id='coloringTestBackground'>
         <div className='utensilBar'>
           
           
           <div>
-          <select id="printSelct" onChange={(evt) => {setPrint(evt.target.value)}}>
+          <select id="printSelect" onChange={(evt) => {setPrint(evt.target.value)}}>
             <option value='http://127.0.0.1:8081/coloring-page-adult-zen-stormtrooper-by-allan.jpg'>Psychedelic Stormtrooper</option>
             <option value='http://127.0.0.1:8081/coloring-mandala-heather-hinson-1.jpg'>Flower</option>
             <option value='http://127.0.0.1:8081/coloring-mandala-metal-vegetal.jpg'>Metal Flower</option>
@@ -111,25 +111,28 @@ const ColoringTest = () => {
         
         
         <div>
-            <div className='colorbar'>
-            <input type="color" onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
-        </div>
+            <div className='colorBar'>
+            <label className='colorBarLabel' for='color'>Set Color</label>
+            <input id ='color' type="color" onChange={(evt) => {setLineColor(`${evt.target.value}`)}}></input>
+            </div>
 
-        <div id='opacityContainer'>
-            <label for='opacitySlider'>Set Opacity</label>
+        <div className='opacityContainer'>
+            <label className='colorBarLabel' for='opacitySlider'>Set Opacity</label>
             <input id="opacitySlider" type="range" name='opacity' min={0} max={1} step={0.1} onChange={(evt) => {setOpacity(evt.target.value)}}/>
         </div>
         
-        <div id='strokeWidthContainer'>
-            <label for='strokeWidthSlider'>Set Brush Width</label>
+        <div className='strokeWidthContainer'>
+            <label className='colorBarLabel' for='strokeWidthSlider'>Set Brush Width</label>
             <input id='strokeWidthSlider' type='range' name='strokeWidth' min={0} max={6} step={1} onChange={(evt) => {setStrokeWidth(evt.target.value)}}/>
         </div>
         
        
 
+        <div className='eraseButton'>
 
-       <button id="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
+       <button className="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
        {click ? eraseSelect() : console.log('erase select not rendered')}
+        </div>
        
        </div>
        </div>
@@ -142,7 +145,7 @@ const ColoringTest = () => {
             onMouseUp={handleMouseUp}>
             <Layer ref={targetLayer}>
                     {/* <Rect height={590} width={590} fillPatternImage={print}/> */}
-                    <Image image={image} height={790} width={790}/>
+                    <Image image={image} height={800} width={800}/>
 
                       
                    {isDrawing ? lines.map((line, i) => (<Line key={i} points={line.points} stroke={line.stroke} strokeWidth={line.strokeWidth} tension={line.tension} lineCap={line.lineCap} />)) : console.log("check for errors")}
@@ -153,7 +156,7 @@ const ColoringTest = () => {
             </Stage >
         </div>
         </div>
-        
+        </div>
 
         
         </>
