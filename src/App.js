@@ -96,8 +96,7 @@ import React from 'react'
   }
 
 
-
-   
+  
 
   const getCurrentUser = (userObj) => {
     
