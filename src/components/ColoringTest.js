@@ -1,5 +1,5 @@
 import { Stage, Layer, Line, Rect, Image} from 'react-konva'
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import useImage from 'use-image'
 
 
@@ -22,8 +22,14 @@ const ColoringTest = () => {
     const eiselStage = useRef()
     const targetLayer = useRef()
     const [click, setClick] = useState(false)
-    const [print, setPrint] = useState('https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-page-adult-zen-stormtrooper-by-allan.jpg')
+    const [print, setPrint] = useState('')
     const [image] = useImage(print)
+
+
+    
+    useEffect(() => {
+        setPrint('https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-page-adult-zen-stormtrooper-by-allan.jpg')
+    }, [setPrint])
 
 
 
