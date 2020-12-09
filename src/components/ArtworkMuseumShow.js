@@ -1,9 +1,10 @@
-
-
-const ArtworkShow = (props) => {
-
+const ArtworkMuseumShow = (props) => {
     
-
+    
+    
+    
+    
+    
     return (
         <div>
             <div className='detailsBackground'>
@@ -11,8 +12,8 @@ const ArtworkShow = (props) => {
             <div className='showCard'>
 
              <img className='artworkShowImage'src={props.details.primaryImage} alt='not available'/>
-             
-            </div>
+             <button className='museumShowButton'>Save This To Your Gallery!</button>
+             </div>
             
             <div className='artDetailsTabOne'>
                 <div className='artDetail'>
@@ -32,35 +33,33 @@ const ArtworkShow = (props) => {
                 <h4>{props.details.objectDate}</h4>
                 </div>
 
-
-                
-            </div>
+                </div>
 
             <div className='artDetailsTabTwo'>
-            
-                <div className='artDetail'> 
+                 <div className='artDetail'>
                 <h4><u>Medium</u> ~</h4>
-                
                 <h4>{props.details.medium}</h4>
+
                 </div>
 
                 <div className='artDetail'>
                 <h4><u>Region</u> ~</h4>
-                <h4>{props.details.region}</h4>
+                {props.details.region === "" || props.details.region === undefined ? <h4>N/A</h4> : <h4>{props.details.region}</h4>}
                 </div>
 
                 <div className='artDetail'>
                 <h4><u>Country of Origin</u> ~</h4>
-                <h4>{props.details.country_of_origin}</h4>
+                {props.details.country === "" || props.details.country === undefined ? <h4>N/A</h4> : <h4>{props.details.country}</h4>}
                 </div>
             
             </div>
 
-            </div>
             
-         
+            
+            </div>
         </div>
     )
+
 }
 
-export default ArtworkShow
+export default ArtworkMuseumShow

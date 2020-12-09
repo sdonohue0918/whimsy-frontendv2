@@ -574,7 +574,7 @@
 }
 
 .detailsBackground {
-  background-color: black;
+  background-image: url('https://media.aedas.com/styles/mcrop/s3/Brighton-Dome-Art-Gallery9_UK_Martin-Charles__1.jpg?EWGAp1UGDTszTg2N5vygdZpVol7_k9p7');
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -614,5 +614,12 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: 1px;
+  font-family: 'Snell Roundhand';
+}
+
+.museumShowButton {
+  margin: 10px;
+  width: 25%;
+  margin-left: 300px;
   font-family: 'Snell Roundhand';
 }

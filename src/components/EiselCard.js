@@ -3,7 +3,7 @@ import {withRouter, NavLink, useHistory} from 'react-router-dom'
 const EiselCard = (props) => {
     const history = useHistory()
     
-    let filePath = `http://127.0.0.1:8080/${props.eisel.name}.png`
+    //let filePath = `http://127.0.0.1:8080/${props.eisel.name}.png`
 
     const clickHandler = () => {
         history.push(`/gallery/display/${props.eisel.id}`)
@@ -14,7 +14,7 @@ const EiselCard = (props) => {
         <>
 
         <div className='card'>
-            <img className='cardImage' src={filePath} alt="no file here!" onClick={clickHandler}></img>
+            <img className='cardImage' src={props.eisel.imagefile} alt="no file here!" onClick={clickHandler}></img>
             
             
         </div>

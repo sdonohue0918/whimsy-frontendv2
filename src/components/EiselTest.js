@@ -1,7 +1,5 @@
 import { useRef, useState } from 'react'
 import { Stage, Layer, Line, Rect} from 'react-konva';
-import {postStage, addEisel} from '../actions/actions'
-import { connect } from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import NewEiselForm from './NewEiselForm';
 

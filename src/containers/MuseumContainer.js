@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
-import ArtworkCard from '../components/ArtworkCard'
-import ArtworkShow from '../components/ArtworkShow'
-import {Route, Switch, NavLink} from 'react-router-dom'
-import { getSelectInput } from '../actions/actions'
+import { useState} from 'react'
+//import ArtworkCard from '../components/ArtworkCard'
+import ArtworkMuseumCard from '../components/ArtworkMuseumCard'
+import ArtworkMuseumShow from '../components/ArtworkMuseumShow'
+import {Route, Switch} from 'react-router-dom'
+
 
 
 
@@ -20,7 +21,7 @@ const MuseumContainer = (props) => {
     const renderArtworks = () => {
         if (fetchLoading === 'success') {
             if (works.length > 0) {
-                return works.map(work => { return <ArtworkCard key={work.objectID} details={work} postWork={props.postWork}/>})
+                return works.map(work => { return <ArtworkMuseumCard key={work.objectID} details={work} postWork={props.postWork}/>})
             } else {
                 return (
                     <div>
@@ -159,43 +160,66 @@ const MuseumContainer = (props) => {
         
         <div>
             
-                
+                <Switch>
             
+                    <Route path='/museum/:id' render={(routerProps) => {
+                        let artwork;
+                        if (fetchLoading === 'success') {
+                            if (works.length > 0) {
+                                let id = parseInt(routerProps.match.params.id)
+                                artwork = works.find(work => work.objectID === id)
+                            }
 
+                        }
+
+                        return (
+                            <div>
+                                { artwork ? <ArtworkMuseumShow currentUser={props.currentUser} details={artwork}/> : null }
+                            </div>
+                        )
+
+
+
+
+                    }}/>
 
 
 
                 
                 
 
+                    <Route path='/museum' render={() => {
+                        return (
+                            <div >
                     
                     
-                    <div >
-                    
-                    
-                    <div id='museumBackground'>
+                                <div id='museumBackground'>
                         
-                        <div id='museumTag'>
-                            <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>
-                        </div>
+                                <div id='museumTag'>
+                                    <h4>Search for Famous Pieces By Tag! The Findings Here Are Curated by Algorithms courtesy of the MET</h4>
+                                </div>
                         
-                        <div id='museumSearchContainer'>
-                        <input id='museumSearchInput'  type="text" name="search" placeholder="Search for Art Here" value={search} onChange={(evt) => setSearch(evt.target.value)}></input>
+                                <div id='museumSearchContainer'>
+                                <input id='museumSearchInput'  type="text" name="search" placeholder="Search for Art Here" value={search} onChange={(evt) => setSearch(evt.target.value)}></input>
 
-                            {fetchRender()}
-                        </div>
+                                {fetchRender()}
+                                </div>
                        
-                        <div id='artworkCardWrapper'>
-                       <div id='artworkCardContainer'>
-                           {renderArtworks()}
-                       </div>
-                       </div>
-                    </div>
+                                <div id='artworkCardWrapper'>
+                                <div id='artworkCardContainer'>
+                                {renderArtworks()}
+                                </div>
+                                </div>
+                                </div>
                     
-                    </div>
+                            </div>
+
+                        )
+                    }}/>
+                    
                     
 
-                
+                </Switch>
            
         </div>
     )
