@@ -8,7 +8,7 @@ const ArtworkCard = (props) => {
     
     
     const postHandler = () => {
-        //console.log(props.details)
+        
         props.postWork(props.details)
     }
     

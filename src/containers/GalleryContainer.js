@@ -66,10 +66,7 @@ const GalleryContainer = (props) => {
                             
                             
                         <div >
-                            {/* <NavLink to='/gallery/display'>Visit Your Gallery!</NavLink>
-                            <NavLink to='/museum'>Visit The Museum!</NavLink>
-                            <NavLink to='/gallery/createeisel'>Go Create!</NavLink>
-                            <NavLink to='/coloring'>DeStress!</NavLink> */}
+                            
                         </div>
                         </div>
                     )
@@ -86,33 +83,10 @@ const GalleryContainer = (props) => {
     )
 }
 
-// const mapStateToProps = (state) => {
-//     const { stages } = state
-//     const { searchInput } = state
-//     const { stage } = state
-//     const {selectInput } = state
-//     return {
-//         stages,
-//         searchInput,
-//         stage,
-//         selectInput
-//     }
-//     // return {
-//     // stages: state.stages,
-//     // stage: state.stage,
-//     // searchInput: state.searchInput,
-//     // selectInput: state.selectInput
-//     // }
-// }
 
 
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         fetchStages: () => {
-//             dispatch(fetchStages())
-//         }
-//     }
-// }
+
+
 
 export default GalleryContainer

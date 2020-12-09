@@ -80,26 +80,3 @@ const GalleryFilters = (props) => {
 export default  GalleryFilters 
     
 
-// const mapDispatchToProps = (dispatch) => {
-    //     return {
-    //         getSearchInput: (etv) => {
-    //             dispatch(getSearchInput(etv))
-    //         },
-    //         getSelectInput: (etv) => {
-    //             dispatch(getSelectInput(etv))
-    //         }
-    //     }
-    // }
-
-    // <Route path='/museum/:id' render={(routerProps) => {
-    //     let work
-    //     if (works.length > 0) {
-    //         let id = parseInt(routerProps.match.params.id)
-    //         work = works.find(work => work.objectID === id)
-    //     }
-    //     return (
-    //         <div>
-    //             {work ? <ArtworkShow details={work} postWork={props.postWork}/> : null}
-    //         </div>
-    //     )
-    // }}/> 

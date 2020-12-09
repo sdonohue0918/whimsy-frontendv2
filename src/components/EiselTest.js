@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Stage, Layer, Line, Rect} from 'react-konva';
 import {postStage, addEisel} from '../actions/actions'
 import { connect } from 'react-redux'
@@ -56,24 +56,24 @@ const EiselTest = (props) => {
 
 
       const handleMouseMove = (e) => {
-        // no drawing - skipping
+        
         if (!isDrawing.current) {
           return;
         }
         const stage = e.target.getStage();
         const point = stage.getPointerPosition();
         let lastLine = lines[lines.length - 1];
-        // add point
+        
         lastLine.points = lastLine.points.concat([point.x, point.y]);
     
-        // replace last
+        
         lines.splice(lines.length - 1, 1, lastLine);
         setLines(lines.concat());
       };
 
       const handleMouseUp = (e) => {
         isDrawing.current = false;
-        targetLayer.current = e.target
+        
         
       };
 
@@ -182,7 +182,7 @@ const EiselTest = (props) => {
                   </Layer>
               </Stage>
                
-              {/* {click ? eraseSelect() : console.log('erase select not rendered')} */}
+              
 
         <div >
 
@@ -190,7 +190,7 @@ const EiselTest = (props) => {
         </div>
         
         
-        {/* <button onClick={handleSave}>SAVE CANVAS</button> */}
+        
         {formClick ? <NewEiselForm data={rawData} postEisel={props.postEisel} currentUser={props.currentUser}/> : console.log("error")}
         
         

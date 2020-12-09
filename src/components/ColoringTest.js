@@ -22,8 +22,7 @@ const ColoringTest = () => {
     const eiselStage = useRef()
     const targetLayer = useRef()
     const [click, setClick] = useState(false)
-    // const [formClick, setFormClick] = useState(false)
-    const [print, setPrint] = useState('http://127.0.0.1:8081/coloring-page-adult-zen-stormtrooper-by-allan.jpg')
+    const [print, setPrint] = useState('https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-page-adult-zen-stormtrooper-by-allan.jpg')
     const [image] = useImage(print)
 
 
@@ -45,17 +44,17 @@ const ColoringTest = () => {
     
 
       const handleMouseMove = (e) => {
-        // no drawing - skipping
+        
         if (!isDrawing.current) {
           return;
         }
         const stage = e.target.getStage();
         const point = stage.getPointerPosition();
         let lastLine = lines[lines.length - 1];
-        // add point
+        
         lastLine.points = lastLine.points.concat([point.x, point.y]);
     
-        // replace last
+        
         lines.splice(lines.length - 1, 1, lastLine);
         setLines(lines.concat());
       };
@@ -99,13 +98,13 @@ const ColoringTest = () => {
           
           <div>
           <select id="printSelect" onChange={(evt) => {setPrint(evt.target.value)}}>
-            <option value='http://127.0.0.1:8081/coloring-page-adult-zen-stormtrooper-by-allan.jpg'>Psychedelic Stormtrooper</option>
-            <option value='http://127.0.0.1:8081/coloring-mandala-heather-hinson-1.jpg'>Flower</option>
-            <option value='http://127.0.0.1:8081/coloring-mandala-metal-vegetal.jpg'>Metal Flower</option>
-            <option value='http://127.0.0.1:8081/coloring-mandala-yin-yang-and-elegant-leaves.jpg'>Yin/Yang Mandala</option>
-            <option value='http://127.0.0.1:8081/coloring-page-adult-fox-mountain-forest-by-allan.jpg'>Mountain Fox</option>
-            <option value='http://127.0.0.1:8081/coloring-page-musician-playing-the-saxophone.jpg'>Saxophonist</option>
-            <option value='http://127.0.0.1:8081/coloring-whimsical-background.jpg'>Many Flowers</option>
+            <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-page-adult-zen-stormtrooper-by-allan.jpg'>Psychedelic Stormtrooper</option>
+            <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-mandala-heather-hinson-1.jpg'>Flower</option>
+            <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-mandala-metal-vegetal.jpg'>Metal Flower</option>
+            <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-mandala-yin-yang-and-elegant-leaves.jpg'>Yin/Yang Mandala</option>
+            <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-page-adult-fox-mountain-forest-by-allan.jpg'>Mountain Fox</option>
+            <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-page-musician-playing-the-saxophone.jpg'>Saxophonist</option>
+            <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-whimsical-background.jpg'>Many Flowers</option>
          </select>
           </div>
         
@@ -144,7 +143,7 @@ const ColoringTest = () => {
             onMousemove={handleMouseMove}
             onMouseUp={handleMouseUp}>
             <Layer ref={targetLayer}>
-                    {/* <Rect height={590} width={590} fillPatternImage={print}/> */}
+                    
                     <Image image={image} height={800} width={800}/>
 
                       

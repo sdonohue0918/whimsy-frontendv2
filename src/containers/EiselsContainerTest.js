@@ -89,25 +89,7 @@ const EiselsContainer = (props) => {
 
 }
 
-// const mapStateToProps = (state) => {
-//     const { stages } = state
-//     const { searchInput } = state
-//     const { stage } = state
-//     const {selectInput } = state
-//     return {
-//         stages,
-//         searchInput,
-//         stage,
-//         selectInput
-//     }
-//     // return {
-//     // stages: state.stages,
-//     // stage: state.stage,
-//     // searchInput: state.searchInput,
-//     // selectInput: state.selectInput
-//     // }
-// }
+
 
 export default EiselsContainer
 
-// export default connect(mapStateToProps)(EiselsContainer)
