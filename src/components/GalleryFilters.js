@@ -24,14 +24,8 @@ const GalleryFilters = (props) => {
             if (selectValue === "userOnly") {
                     let userEisels = props.eisels.filter(eisel => eisel.user_id === props.currentUser.id)
                     setFilteredEisels(userEisels)
-                } else if (selectValue === "allEisels") {
-                    let allEisels = props.eisels.filter(eisel => eisel)
-                    setFilteredEisels(allEisels)
-                } else if (selectValue === "likedEisels") {
-                    let likedEisels = props.eisels.filter(eisel => eisel.user_id !== props.currentUser.id)
-                    let userLikes = likedEisels.filter(eisel => eisel.likes.some(like => like.user_id === props.currentUser.id))
-                    setFilteredEisels(userLikes)
-                } else if (selectValue === "savedArtworks") {
+                 
+                }  else if (selectValue === "savedArtworks") {
                     let userArtworks = props.artworks.filter(work => work.user_id === props.currentUser.id)
                     setFilteredEisels(userArtworks)
                 }
@@ -60,9 +54,7 @@ const GalleryFilters = (props) => {
             <div id='galleryFilterSelectTab'>
 
             <select id="galleryFilterSelect" ref={selectRef} onChange={(evt) => setSelectValue(evt.target.value)} value={selectValue}>
-                <option value="allEisels">All User Creations</option>
                 <option value="userOnly" >My Eisels</option>
-                <option value="likedEisels">My Liked Eisels</option>
                 <option value="savedArtworks">My Saved Artworks</option>
             </select>
             </div>

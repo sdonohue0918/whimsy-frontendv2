@@ -6,7 +6,7 @@ import MuseumContainer from './containers/MuseumContainer'
 import ColoringContainer from './containers/ColoringContainer'
 import Login from './components/Login'
 import {useEffect, useState} from 'react'
-import { Route, Switch, useHistory, NavLink }  from 'react-router-dom'
+import { Route, Switch, useHistory}  from 'react-router-dom'
 import React from 'react'
 
 
@@ -14,8 +14,8 @@ import React from 'react'
 
   function App() {
   
-    const [eisels, setAllEisels] = useState([])
-    const [artworks, setArtWorks] = useState([])
+    // const [eisels, setAllEisels] = useState([])
+    // const [artworks, setArtWorks] = useState([])
     const [users, setAppUsers] = useState([])
     const [currentUser, setCurrentUser] = useState(null)
     const history = useHistory()
@@ -24,9 +24,9 @@ import React from 'react'
   
   
   useEffect(() => {
-    fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => setAllEisels(data))
+    //fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => setAllEisels(data))
     fetch('http://localhost:3000/users').then(resp => resp.json()).then(data => setAppUsers(data))
-    fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => setArtWorks(data))
+    //fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => setArtWorks(data))
   }, [])
 
   
@@ -101,13 +101,12 @@ import React from 'react'
   const getCurrentUser = (userObj) => {
     
     let userObjName = userObj.get('username')
-    // let userObjPassword = userObj.get('password')
-    //console.log(userObjName, userObjPassword)
+   
 
     let matchUser = users.find(user => user.username === userObjName)
-    //console.log(matchUser)
+    
     setCurrentUser(matchUser)
-    //history.push('/')
+    
     
 
   }
@@ -202,8 +201,6 @@ const removeLikeFromEisel = (likeObj) => {
                     
                     
                     currentUser={currentUser} 
-                    eisels={eisels}
-                    artworks={artworks} 
                     postEisel={postEiselToAPI}
                     deleteEisel={deleteEisel}
                     deleteLike={removeLikeFromEisel}

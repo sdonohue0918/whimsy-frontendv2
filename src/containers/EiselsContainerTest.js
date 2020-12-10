@@ -1,6 +1,6 @@
 
-import {useState} from 'react'
-import {Switch, Route, NavLink} from 'react-router-dom'
+import {useState, useEffect} from 'react'
+import {Switch, Route} from 'react-router-dom'
 import GalleryFilters from '../components/GalleryFilters'
 import EiselShow from '../components/EiselShow'
 import ArtworkShow from '../components/ArtworkShow'
@@ -10,22 +10,23 @@ import ArtworkShow from '../components/ArtworkShow'
 
 
 const EiselsContainer = (props) => {
-    const [Eisels, setAllEisels] = useState([])
-    const [filter, setFilter] = useState(null)
+    //const [filter, setFilter] = useState(null)
     
    
-    const renderNavBar = () => {
-        return (
-            <div >
-                <ul className='NavBar'>
-                    <li className='NavLink'><NavLink to='/gallery'>Home</NavLink></li>
-                    <li className='NavLink'><NavLink to='/gallery/createeisel'>Create</NavLink></li>
-                    <li className='NavLink'><NavLink to='/coloring'>Destressor</NavLink></li>
-                    <li className='NavLink'><NavLink to='/museum'>Museum</NavLink></li>
-                </ul>
-            </div>
-        )
-    }
+    // const renderNavBar = () => {
+    //     return (
+    //         <div >
+    //             <ul className='NavBar'>
+    //                 <li className='NavLink'><NavLink to='/gallery'>Home</NavLink></li>
+    //                 <li className='NavLink'><NavLink to='/gallery/createeisel'>Create</NavLink></li>
+    //                 <li className='NavLink'><NavLink to='/coloring'>Destressor</NavLink></li>
+    //                 <li className='NavLink'><NavLink to='/museum'>Museum</NavLink></li>
+    //             </ul>
+    //         </div>
+    //     )
+    // }
+
+   
 
    return (
         <div>

@@ -24,8 +24,8 @@ const MuseumContainer = (props) => {
                 return works.map(work => { return <ArtworkMuseumCard key={work.objectID} details={work} postWork={props.postWork}/>})
             } else {
                 return (
-                    <div>
-                        <h5>No Results Returned!</h5>
+                    <div >
+                        <h3 className='museumFlagError'>No Results Returned!</h3>
                     </div>
                 )
             }
@@ -33,7 +33,7 @@ const MuseumContainer = (props) => {
         } else {
             return (
                 <div>
-                    <h5>Search For Anything! The Curated Findings Will Be Displayed Here!</h5>
+                    <h3 className='museumFlag'>Search For Anything! The Curated Findings Will Be Displayed Here!</h3>
                 </div>
             )
         }
@@ -147,9 +147,9 @@ const MuseumContainer = (props) => {
         }
     }
 
-    console.log(search)
-    console.log(works)
-    console.log(fetchLoading)
+    // console.log(search)
+    // console.log(works)
+    // console.log(fetchLoading)
     
     
     
@@ -174,7 +174,7 @@ const MuseumContainer = (props) => {
 
                         return (
                             <div>
-                                { artwork ? <ArtworkMuseumShow currentUser={props.currentUser} details={artwork}/> : null }
+                                { artwork ? <ArtworkMuseumShow postWork={props.postWork} currentUser={props.currentUser} details={artwork}/> : null }
                             </div>
                         )
 

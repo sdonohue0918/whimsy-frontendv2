@@ -5,11 +5,8 @@ const NewEiselForm = (props) => {
 
     const [eiselname, setEiselName] = React.useState("")
     const [eiselgenre, setEiselGenre] = React.useState("")
-    // const [filename, setFileName] = React.useState("")
     const eiselform = React.useRef()
-    // const nameInput = React.useRef()
-    // const genreInput = React.useRef()
-    // const userInput = React.useRef()
+    
 
 
     const handlePost = (e) => {

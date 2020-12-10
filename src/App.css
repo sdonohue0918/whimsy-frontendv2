@@ -623,3 +623,15 @@
   margin-left: 300px;
   font-family: 'Snell Roundhand';
 }
+
+.museumFlag {
+  color: white;
+  font-family: 'Snell Roundhand';
+  margin-left: 600px;
+}
+
+.museumFlagError {
+  color: white;
+  font-family: 'Snell Roundhand';
+  margin-left: 800px;
+}

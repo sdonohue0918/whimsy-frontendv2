@@ -7,10 +7,6 @@ const ArtworkCard = (props) => {
     const history = useHistory()
     
     
-    const postHandler = () => {
-        
-        props.postWork(props.details)
-    }
     
     const redirect = () => {
         history.push(`/gallery/display/artwork/${props.details.objectID}`)
