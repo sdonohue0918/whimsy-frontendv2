@@ -162,7 +162,7 @@ const MuseumContainer = (props) => {
             
                 <Switch>
             
-                    <Route path='/museum/:id' render={(routerProps) => {
+                    <Route path='/gallery/museum/:id' render={(routerProps) => {
                         let artwork;
                         if (fetchLoading === 'success') {
                             if (works.length > 0) {
@@ -188,7 +188,7 @@ const MuseumContainer = (props) => {
                 
                 
 
-                    <Route path='/museum' render={() => {
+                    <Route path='/gallery/museum' render={() => {
                         return (
                             <div >
                     

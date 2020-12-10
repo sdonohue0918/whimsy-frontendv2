@@ -180,7 +180,7 @@ const GalleryContainer = (props) => {
                 )}
                 }/>
 
-            <Route path='/museum' render={() => {
+            <Route path='/gallery/museum' render={() => {
                 return (
                   <div>
                     <MuseumContainer postWork={postArtworkToAPI} />
@@ -193,7 +193,7 @@ const GalleryContainer = (props) => {
                     return (
                         <div className='galleryBackground'>
                             
-                            <img id='door' src='https://www.pngkey.com/png/full/322-3226486_screen-door.png' alt='not found' onClick={() => { history.push('/museum') }}/>
+                            <img id='door' src='https://www.pngkey.com/png/full/322-3226486_screen-door.png' alt='not found' onClick={() => { history.push('/gallery/museum') }}/>
                             
                             
                             
