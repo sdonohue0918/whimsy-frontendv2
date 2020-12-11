@@ -1,27 +1,33 @@
-import { useState} from 'react'
-//import ArtworkCard from '../components/ArtworkCard'
+
+
 import ArtworkMuseumCard from '../components/ArtworkMuseumCard'
 import ArtworkMuseumShow from '../components/ArtworkMuseumShow'
 import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
 
 
 
 
-const MuseumContainer = (props) => {
+
+class MuseumContainer extends Component {
     
     
-    const [works, setWorks] = useState(null)
-    const [search, setSearch] = useState("")
-    const [fetchLoading, setFetchLoading] = useState(null)
+    // const [works, setWorks] = useState(null)
+    // const [search, setSearch] = useState("")
+    // const [fetchLoading, setFetchLoading] = useState(null)
     
     
-
+    state = {
+        works: [],
+        search: "",
+        fetchLoading: ""
+    }
    
 
-    const renderArtworks = () => {
-        if (fetchLoading === 'success') {
-            if (works.length > 0) {
-                return works.map(work => { return <ArtworkMuseumCard key={work.objectID} details={work} postWork={props.postWork}/>})
+    renderArtworks = () => {
+        if (this.state.fetchLoading === 'success') {
+            if (this.state.works.length > 0) {
+                return this.state.works.map(work => { return <ArtworkMuseumCard key={work.objectID} details={work} postWork={this.props.postWork}/>})
             } else {
                 return (
                     <div >
@@ -44,20 +50,26 @@ const MuseumContainer = (props) => {
     }
     
     
-    const fetchObjectsClick = () => {
-            getMet()
+     fetchObjectsClick = () => {
+            this.getMet()
     }
 
 
-    const curationReset = () => {
+     curationReset = () => {
         
-        setFetchLoading(false)
-        setWorks(null)
-        setSearch('')
+        // setFetchLoading(false)
+        // setWorks(null)
+        // setSearch('')
+
+        this.setState({
+            works: [],
+            search: "",
+            fetchLoading: ""
+        })
     }
     
 
-    const getMet = () => {
+     getMet = () => {
         
         let config = {
             method: "GET",
@@ -67,7 +79,7 @@ const MuseumContainer = (props) => {
         }
         let newSearchTerm
         
-        let searchTerm = search.split(' ')
+        let searchTerm = this.state.search.split(' ')
         if (searchTerm.length === 1) {
             newSearchTerm = searchTerm.join(' ')
             
@@ -79,15 +91,17 @@ const MuseumContainer = (props) => {
 
     fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${newSearchTerm}`, config).then(resp => resp.json()).then(data => { 
         
-        console.log(data)
-        setFetchLoading('loading')
-        testGetMetObject(data)
+        //console.log(data)
+        // setFetchLoading('loading')
+
+        this.setState({fetchLoading: "loading"}, () => {this.testGetMetObject(data)})
+        //testGetMetObject(data)
     }).catch(error => console.log(error))
        
             
     }
 
-    const testGetMetObject = (objects) => {
+     testGetMetObject = (objects) => {
         let config = {
             method: "GET",
             headers: {
@@ -110,38 +124,44 @@ const MuseumContainer = (props) => {
 
             for (let i = 0; i < idList.length; i++) {
                 fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${idList[i]}`, config).then(resp => resp.json()).then(data => {
-                console.log(data)
+                //console.log(data)
                 worksArray.push(data)
                 
                })
             }
         }
         
-        setWorks(worksArray)
-        setFetchLoading('success')
+        // setWorks(worksArray)
+        // setFetchLoading('success')
+
+        this.setState({
+            works: worksArray,
+            fetchLoading: 'success',
+            search: ""
+        })
         
         
     }
 
     
     
-    const fetchRender = () => {
-        if (fetchLoading === 'loading') {
+     fetchRender = () => {
+        if (this.state.fetchLoading === 'loading') {
             return (
                 <>
                 <h3 style={{color: 'white'}}>Loading Results...</h3> 
                 </>
             )
-        } else if (fetchLoading === 'success') {
+        } else if (this.state.fetchLoading === 'success') {
             return (
                 <>
-                <button onClick={curationReset}>X</button>
+                <button onClick={this.curationReset}>X</button>
                 </>
             )
         } else {
             return (
                 <>
-                <button id='museumSearchButton' onClick={fetchObjectsClick}>Get Curated Findings</button>
+                <button id='museumSearchButton' onClick={this.fetchObjectsClick}>Get Curated Findings</button>
                 </>
             )
         }
@@ -153,34 +173,35 @@ const MuseumContainer = (props) => {
     
     
     
-    
-    
-    return (
+    render() {
+
         
-        
-        <div>
+        return (
+            
+            
+            <div>
             
                 <Switch>
             
                     <Route path='/gallery/museum/:id' render={(routerProps) => {
                         let artwork;
-                        if (fetchLoading === 'success') {
-                            if (works.length > 0) {
+                        if (this.state.fetchLoading === 'success') {
+                            if (this.state.works.length > 0) {
                                 let id = parseInt(routerProps.match.params.id)
-                                artwork = works.find(work => work.objectID === id)
+                                artwork = this.state.works.find(work => work.objectID === id)
                             }
-
+                            
                         }
-
+                        
                         return (
                             <div>
-                                { artwork ? <ArtworkMuseumShow postWork={props.postWork} currentUser={props.currentUser} details={artwork}/> : null }
+                                { artwork ? <ArtworkMuseumShow postWork={this.props.postWork} currentUser={this.props.currentUser} details={artwork}/> : null }
                             </div>
                         )
-
-
-
-
+                        
+                        
+                        
+                        
                     }}/>
 
 
@@ -200,22 +221,22 @@ const MuseumContainer = (props) => {
                                 </div>
                         
                                 <div id='museumSearchContainer'>
-                                <input id='museumSearchInput'  type="text" name="search" placeholder="Search for Art Here" value={search} onChange={(evt) => setSearch(evt.target.value)}></input>
+                                <input id='museumSearchInput'  type="text" name="search" placeholder="Search for Art Here" value={this.state.search} onChange={(evt) => this.setState({search: evt.target.value})}></input>
 
-                                {fetchRender()}
+                                {this.fetchRender()}
                                 </div>
                        
                                 <div id='artworkCardWrapper'>
                                 <div id='artworkCardContainer'>
-                                {renderArtworks()}
+                                {this.renderArtworks()}
                                 </div>
                                 </div>
                                 </div>
                     
                             </div>
 
-                        )
-                    }}/>
+)
+}}/>
                     
                     
 
@@ -223,6 +244,7 @@ const MuseumContainer = (props) => {
            
         </div>
     )
+}
 
     
 }
