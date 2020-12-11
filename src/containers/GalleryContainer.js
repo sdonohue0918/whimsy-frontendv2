@@ -1,23 +1,29 @@
-
+import React, {Component} from 'react'
 import EiselTest from '../components/EiselTest'
 import EiselsContainer from '../containers/EiselsContainerTest'
 import MuseumContainer from '../containers/MuseumContainer'
-import {Switch, Route, useHistory} from 'react-router-dom'
-import {useState, useEffect, useRef} from 'react'
+import {Switch, Route, withRouter} from 'react-router-dom'
 
-const GalleryContainer = (props) => {
-    const history = useHistory()
-    const [eisels, setAllEisels] = useState([])
-    const [artworks, setAllArtworks] = useState([])
-    const artworksDidUpdate = useRef(false)
-    const eiselsDidUpdate = useRef(false)
+
+
+
+class GalleryContainer extends Component {
+    //  history = useHistory()
+     state = {
+         eisels: [],
+         artworks: []
+     }
+    // const [eisels, setAllEisels] = useState([])
+    // const [artworks, setAllArtworks] = useState([])
+    // const artworksDidUpdate = useRef(false)
+    // const eiselsDidUpdate = useRef(false)
     
 
-    useEffect(() => {
-        fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => setAllEisels(data))
-        fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => setAllArtworks(data))
+    // useEffect(() => {
+    //     fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => setAllEisels(data))
+    //     fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => setAllArtworks(data))
         
-    }, [])
+    // }, [])
 
     // useEffect(() => {
     //     if (!initialFetch.current) {
@@ -55,20 +61,20 @@ const GalleryContainer = (props) => {
     
     
     
-    // const fetchEisels = () => {
-    //     fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => setAllEisels(data))
+    fetchEisels = () => {
+        fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => this.setState({eisels: data}))
         
-    // }
+    }
 
-    // const fetchArtworks = () => {
-    //     fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => setAllArtworks(data))
-    // }
+     fetchArtworks = () => {
+        fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
+    }
 
 
-    const postArtworkToAPI = (workObj) => {
+     postArtworkToAPI = (workObj) => {
         //console.log(workObj)
         let data = new FormData()
-          data.append('artwork[user_id]', props.currentUser.id)
+          data.append('artwork[user_id]', this.props.currentUser.id)
           data.append('artwork[objectID]', workObj.objectID)
           data.append('artwork[title]', workObj.title)
           data.append('artwork[primaryImage]', workObj.primaryImage)
@@ -87,10 +93,12 @@ const GalleryContainer = (props) => {
     
     
         fetch('http://localhost:3000/artworks', config).then(resp => resp.json()).then(data => {
-          if (artworks.length > 0) {
-            setAllArtworks([...artworks, data])
+          if (this.state.artworks.length > 0) {
+            // setAllArtworks([...artworks, data])
+            this.setState({artworks: [...this.state.artworks, data]})
           } else {
-            setAllArtworks([data])
+            // setAllArtworks([data])
+            this.setState({artworks: data})
           }
         
        
@@ -98,25 +106,25 @@ const GalleryContainer = (props) => {
       
       }
 
-      const postEiselToAPI = (eiselObj) => {
+      postEiselToAPI = (eiselObj) => {
     
         let config = {
           method: "POST",
           body: eiselObj
         }
         fetch('http://localhost:3000/eisels', config).then(resp => resp.json()).then(data => {
-        //   setAllEisels([...eisels, data])
-        //   history.push('/gallery/display')
+        
 
-        eiselsDidUpdate.current = true
-        history.push('/gallery/display')
+        this.setState({eisels: [...this.state.eisels, data]})
+        this.props.history.push('/gallery/display')
+        
         })
         
         
       }
 
 
-      const deleteEisel = (eiselObj) => {
+      deleteEisel = (eiselObj) => {
         
       
         let config = {
@@ -127,12 +135,12 @@ const GalleryContainer = (props) => {
         }
       
         fetch(`http://localhost:3000/eisels/${eiselObj.id}`, config).then(resp => resp.json()).then(data => {
-        // let eiselsAfterDelete = eisels.filter(eisel => eisel.id !== data.id)
-        // setAllEisels(eiselsAfterDelete)
-
-        eiselsDidUpdate.current = true
-        history.push('/gallery/display')
+            let eiselsAfterDelete = this.state.eisels.filter(eisel => eisel.id !== data.id)
         
+            this.setState({eisels: eiselsAfterDelete})
+        
+            this.props.history.push('/gallery/display')
+            
 
         })
         
@@ -143,75 +151,76 @@ const GalleryContainer = (props) => {
 
 
 
-    console.log(artworks)
-    console.log(eisels)
+    // console.log(artworks)
+    // console.log(eisels)
 
-   
-    return (
-        
-        <div>
+   render() {
+
+       return (
+           
+           <div>
             <Switch>
             
             <Route path="/gallery/createeisel" render={() => {
                 return (
                     <div>
 
-                        <EiselTest currentUser={props.currentUser}
-                        postEisel={postEiselToAPI}/>
+                        <EiselTest currentUser={this.props.currentUser}
+                        postEisel={this.postEiselToAPI}/>
                     </div>
                 )
-
+                
             }}/>
             
             
             <Route path="/gallery/display" render={() => {
-
+                
                 return (
                     <div >
 
-                <EiselsContainer currentUser={props.currentUser}
-                eisels={eisels}
-                artworks={artworks}
-                deleteEisel={deleteEisel} 
+                <EiselsContainer currentUser={this.props.currentUser}
+                eisels={this.state.eisels}
+                artworks={this.state.artworks}
+                deleteEisel={this.deleteEisel} 
                 />
                 
                 </div>
 
-                )}
-                }/>
+)}
+}/>
 
             <Route path='/gallery/museum' render={() => {
                 return (
-                  <div>
-                    <MuseumContainer postWork={postArtworkToAPI} />
+                    <div>
+                    <MuseumContainer postWork={this.postArtworkToAPI} />
                   </div>
                 )
-              }}/>
+            }}/>
 
                     
                 <Route path='/gallery' render={() => {
                     return (
                         <div className='galleryBackground'>
                             
-                            <img id='door' src='https://www.pngkey.com/png/full/322-3226486_screen-door.png' alt='not found' onClick={() => { history.push('/gallery/museum') }}/>
+                            <img id='door' src='https://www.pngkey.com/png/full/322-3226486_screen-door.png' alt='not found' onClick={() => { this.props.history.push('/gallery/museum') }}/>
                             
                             
                             
                             
 
-                            <img id='eisel' src='https://img.freepik.com/free-photo/close-up-golden-blank-white-frame_23-2147910001.jpg?size=626&ext=jpg' alt='not found' onClick={() => { history.push('/gallery/display') }}/>
+                            <img id='eisel' src='https://img.freepik.com/free-photo/close-up-golden-blank-white-frame_23-2147910001.jpg?size=626&ext=jpg' alt='not found' onClick={() => { this.props.history.push('/gallery/display') }}/>
                             
                             
                             
                             
 
-                            <img id='coloringBook' src='https://images-na.ssl-images-amazon.com/images/I/41en2EIkbOL._SX258_BO1,204,203,200_.jpg' alt='not found' onClick={() => { history.push('/coloring') }}/>
+                            <img id='coloringBook' src='https://images-na.ssl-images-amazon.com/images/I/41en2EIkbOL._SX258_BO1,204,203,200_.jpg' alt='not found' onClick={() => { this.props.history.push('/coloring')}}/>
                             
                             
                             
                             
 
-                            <img id='pallete' src='https://images.freeimages.com/images/large-previews/a0b/artist-palette-1172456.jpg' alt='not found' onClick={() => { history.push('/gallery/createeisel') }}/>
+                            <img id='pallete' src='https://images.freeimages.com/images/large-previews/a0b/artist-palette-1172456.jpg' alt='not found' onClick={() => { this.props.history.push('/gallery/createeisel') }}/>
                             
                             
                         <div >
@@ -231,6 +240,7 @@ const GalleryContainer = (props) => {
     
     )
 }
+}
 
 
 
@@ -238,4 +248,4 @@ const GalleryContainer = (props) => {
 
 
 
-export default GalleryContainer
+export default withRouter(GalleryContainer)

@@ -1,33 +1,43 @@
 import {useState, useEffect, useRef} from 'react'
 import EiselCard from '../components/EiselCard'
 import ArtworkCard from './ArtworkCard'
+import React, { Component } from 'react'
 
 
-const GalleryFilters = (props) => {
-    const [selectValue, setSelectValue] = useState("userOnly")
-    const [filteredEisels, setFilteredEisels] = useState([])
-    const selectRef = useRef()
+class GalleryFilters extends Component {
+    // const [selectValue, setSelectValue] = useState("userOnly")
+    // const [filteredEisels, setFilteredEisels] = useState([])
+    // const selectRef = useRef()
 
 
    
         
         
-    useEffect(() => {
-        if (selectRef.current.value === selectValue) {
-            setFilter()
-        }
-    }, [selectRef, selectValue])
+    // useEffect(() => {
+    //     if (selectRef.current.value === selectValue) {
+    //         setFilter()
+    //     }
+    // }, [selectRef, selectValue])
     
+    state = {
+        selectValue: "userOnly",
+        filteredEisels: []
+    }
     
+    componentDidMount() {
+        this.setFilter()
+    }
+
     
-    const setFilter = () => {
-            if (selectValue === "userOnly") {
-                    let userEisels = props.eisels.filter(eisel => eisel.user_id === props.currentUser.id)
-                    setFilteredEisels(userEisels)
+
+    setFilter = () => {
+            if (this.state.selectValue === "userOnly") {
+                    let userEisels = this.props.eisels.filter(eisel => eisel.user_id === this.props.currentUser.id)
+                    this.setState({filteredEisels: userEisels})
                  
-                }  else if (selectValue === "savedArtworks") {
-                    let userArtworks = props.artworks.filter(work => work.user_id === props.currentUser.id)
-                    setFilteredEisels(userArtworks)
+                }  else if (this.state.selectValue === "savedArtworks") {
+                    let userArtworks = this.props.artworks.filter(work => work.user_id === this.props.currentUser.id)
+                    this.setState({filteredEisels: userArtworks})
                 }
             }
 
@@ -38,33 +48,35 @@ const GalleryFilters = (props) => {
     
 
     
-    const renderEisels = () => {
-        if (selectValue !== "savedArtworks") {
+    renderEisels = () => {
+        if (this.state.selectValue !== "savedArtworks") {
 
-            return filteredEisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
+            return this.state.filteredEisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
         } else {
-            return filteredEisels.map(work => { return <ArtworkCard key={work.objectID} details={work}/>})
+            return this.state.filteredEisels.map(work => { return <ArtworkCard key={work.objectID} details={work}/>})
         }
     }
     
     
-    
-    return (
-        <div>
+    render() {
+
+        return (
+            <div>
             <div id='galleryFilterSelectTab'>
 
-            <select id="galleryFilterSelect" ref={selectRef} onChange={(evt) => setSelectValue(evt.target.value)} value={selectValue}>
+            <select id="galleryFilterSelect"  onChange={(evt) => this.setState({selectValue: evt.target.value})} value={this.state.selectValue}>
                 <option value="userOnly" >My Eisels</option>
                 <option value="savedArtworks">My Saved Artworks</option>
             </select>
             </div>
 
             <div id="eiselContainer">
-                {renderEisels()}
+                {this.renderEisels()}
             </div>
 
         </div>
     )
+}
 }
 
 

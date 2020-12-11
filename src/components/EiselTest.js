@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Stage, Layer, Line, Rect} from 'react-konva';
-import {NavLink} from 'react-router-dom'
+import {withRouter, NavLink} from 'react-router-dom'
 import NewEiselForm from './NewEiselForm';
 
 
@@ -201,5 +201,5 @@ const EiselTest = (props) => {
 
 }
 
-export default EiselTest
+export default withRouter(EiselTest)
 
