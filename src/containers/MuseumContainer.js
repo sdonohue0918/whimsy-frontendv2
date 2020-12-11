@@ -24,6 +24,20 @@ class MuseumContainer extends Component {
     }
    
 
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevState.works !== this.state.works) {
+    //         this.setState(this.state, () => { this.clearSearch() })
+    //     }
+    // }
+
+    clearSearch = () => {
+        this.setState({search: ""})
+    }
+
+    refresh = () => {
+        this.setState(this.state)
+    }
+    
     renderArtworks = () => {
         if (this.state.fetchLoading === 'success') {
             if (this.state.works.length > 0) {
@@ -31,7 +45,8 @@ class MuseumContainer extends Component {
             } else {
                 return (
                     <div >
-                        <h3 className='museumFlagError'>No Results Returned!</h3>
+                        {/* <h3 className='museumFlagError'>No Results Returned!</h3> */}
+                        <button onClick={this.refresh}>Click To See Results!</button>
                     </div>
                 )
             }
@@ -136,12 +151,14 @@ class MuseumContainer extends Component {
 
         this.setState({
             works: worksArray,
-            fetchLoading: 'success',
-            search: ""
+            fetchLoading: 'success'
+            
         })
         
         
     }
+
+
 
     
     
@@ -167,9 +184,7 @@ class MuseumContainer extends Component {
         }
     }
 
-    // console.log(search)
-    // console.log(works)
-    // console.log(fetchLoading)
+    
     
     
     
