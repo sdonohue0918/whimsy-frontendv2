@@ -7,7 +7,7 @@ const ArtworkMuseumShow = (props) => {
     
     return (
         <div>
-            <div className='detailsBackground'>
+            <div className='museumDetailsBackground'>
             
             <div className='showCard'>
 

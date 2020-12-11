@@ -16,21 +16,20 @@ class GalleryContainer extends Component {
     
     
     componentDidMount() {
-        this.fetchEisels()
-        this.fetchArtworks()
-    }
-
-    
-    
-    fetchEisels = () => {
-        fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => this.setState({eisels: data}))
         
-    }
-
-     fetchArtworks = () => {
+        fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => this.setState({eisels: data}))
         fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
+
     }
 
+    
+
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevState !== this.state) {
+    //         this.setState(this.state)
+    //     }
+    // }
 
      postArtworkToAPI = (workObj) => {
         //console.log(workObj)

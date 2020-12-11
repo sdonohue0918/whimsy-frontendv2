@@ -5,19 +5,7 @@ import React, { Component } from 'react'
 
 
 class GalleryFilters extends Component {
-    // const [selectValue, setSelectValue] = useState("userOnly")
-    // const [filteredEisels, setFilteredEisels] = useState([])
-    // const selectRef = useRef()
-
-
-   
-        
-        
-    // useEffect(() => {
-    //     if (selectRef.current.value === selectValue) {
-    //         setFilter()
-    //     }
-    // }, [selectRef, selectValue])
+    
     
     state = {
         selectValue: "userOnly",

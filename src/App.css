@@ -573,8 +573,16 @@
 
 }
 
-.detailsBackground {
+.museumDetailsBackground {
   background-image: url('https://media.aedas.com/styles/mcrop/s3/Brighton-Dome-Art-Gallery9_UK_Martin-Charles__1.jpg?EWGAp1UGDTszTg2N5vygdZpVol7_k9p7');
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  position: fixed;
+}
+
+.detailsBackground {
+  background-color: black;
   height: 100%;
   width: 100%;
   background-size: cover;
