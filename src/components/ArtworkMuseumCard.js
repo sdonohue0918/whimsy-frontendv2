@@ -4,8 +4,8 @@ const ArtworkMuseumCard = (props) => {
     const history = useHistory()
 
     const redirect = () => {
-        console.log(props.details)
-        history.push(`/museum/${props.details.objectID}`)
+        
+        history.push(`/gallery/museum/${props.details.objectID}`)
     }
 
     return (

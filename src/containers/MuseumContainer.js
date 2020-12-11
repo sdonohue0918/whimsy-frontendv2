@@ -190,7 +190,7 @@ class MuseumContainer extends Component {
     
     render() {
 
-        
+        console.log(this.state)
         return (
             
             
