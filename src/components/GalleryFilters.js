@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
+
 import EiselCard from '../components/EiselCard'
 import ArtworkCard from './ArtworkCard'
 import React, { Component } from 'react'
@@ -26,6 +26,13 @@ class GalleryFilters extends Component {
     
     componentDidMount() {
         this.setFilter()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        // this.setFilter()
+        if (prevProps !== this.props) {
+            this.setState(this.state)
+        }
     }
 
     

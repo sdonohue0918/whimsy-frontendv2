@@ -8,57 +8,18 @@ import {Switch, Route, withRouter} from 'react-router-dom'
 
 
 class GalleryContainer extends Component {
-    //  history = useHistory()
+    
      state = {
          eisels: [],
          artworks: []
      }
-    // const [eisels, setAllEisels] = useState([])
-    // const [artworks, setAllArtworks] = useState([])
-    // const artworksDidUpdate = useRef(false)
-    // const eiselsDidUpdate = useRef(false)
     
-
-    // useEffect(() => {
-    //     fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => setAllEisels(data))
-    //     fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => setAllArtworks(data))
-        
-    // }, [])
-
-    // useEffect(() => {
-    //     if (!initialFetch.current) {
-    //         fetchEisels()
-    //         fetchArtworks()
-    //     } else {
-    //         initialFetch.current = true
-    //     }
-    // }, [initialFetch])
-
-
-    // useEffect(() => {
-    //     if (!artworksDidUpdate.current) {
-    //         return
-    //     } else {
-    //         fetchArtworks()
-    //     }
-
-    //     return () => {
-    //         artworksDidUpdate.current = false
-    //     }
-    // }, [artworksDidUpdate])
-
-    // useEffect(() => {
-    //     if (!eiselsDidUpdate.current) {
-    //         return
-    //     } else {
-    //         fetchEisels()
-    //     }
-
-    //     return () =>{
-    //         eiselsDidUpdate.current = false
-    //     }
-    // }, [eiselsDidUpdate])
     
+    componentDidMount() {
+        this.fetchEisels()
+        this.fetchArtworks()
+    }
+
     
     
     fetchEisels = () => {
@@ -94,10 +55,10 @@ class GalleryContainer extends Component {
     
         fetch('http://localhost:3000/artworks', config).then(resp => resp.json()).then(data => {
           if (this.state.artworks.length > 0) {
-            // setAllArtworks([...artworks, data])
+            
             this.setState({artworks: [...this.state.artworks, data]})
           } else {
-            // setAllArtworks([data])
+            
             this.setState({artworks: data})
           }
         

@@ -1,5 +1,5 @@
 
-import {useState, useEffect} from 'react'
+
 import {Switch, Route} from 'react-router-dom'
 import GalleryFilters from '../components/GalleryFilters'
 import EiselShow from '../components/EiselShow'
@@ -10,21 +10,7 @@ import ArtworkShow from '../components/ArtworkShow'
 
 
 const EiselsContainer = (props) => {
-    //const [filter, setFilter] = useState(null)
     
-   
-    // const renderNavBar = () => {
-    //     return (
-    //         <div >
-    //             <ul className='NavBar'>
-    //                 <li className='NavLink'><NavLink to='/gallery'>Home</NavLink></li>
-    //                 <li className='NavLink'><NavLink to='/gallery/createeisel'>Create</NavLink></li>
-    //                 <li className='NavLink'><NavLink to='/coloring'>Destressor</NavLink></li>
-    //                 <li className='NavLink'><NavLink to='/museum'>Museum</NavLink></li>
-    //             </ul>
-    //         </div>
-    //     )
-    // }
 
    
 
@@ -73,7 +59,7 @@ const EiselsContainer = (props) => {
                     return (
                         <div>
                             <div id='eiselContainerBackground'>
-                        {/* {renderNavBar()} */}
+                        
                         <GalleryFilters  eisels={props.eisels} artworks={props.artworks} currentUser={props.currentUser}/>
                             </div>
                         </div>

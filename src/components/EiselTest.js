@@ -201,5 +201,5 @@ const EiselTest = (props) => {
 
 }
 
-export default withRouter(EiselTest)
+export default EiselTest
 
