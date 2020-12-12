@@ -259,7 +259,7 @@
 
 .eraseButton {
   margin-left: 15px;
-  margin-top: 300px;
+  margin-top: 275px;
 }
 
 /* #eraserContainer {
@@ -325,6 +325,12 @@
 .eraser {
   width: 100px;
   margin-left: 20px;
+}
+
+.linkFeatures {
+  margin-left: 15px;
+  margin-top: 10px;
+  
 }
 
 #postCanvasContainer {

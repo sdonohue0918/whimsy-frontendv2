@@ -65,7 +65,7 @@ const EiselTest = (props) => {
         let lastLine = lines[lines.length - 1];
         
         lastLine.points = lastLine.points.concat([point.x, point.y]);
-    
+        saveLast.current = lastLine
         
         lines.splice(lines.length - 1, 1, lastLine);
         setLines(lines.concat());
@@ -124,8 +124,7 @@ const EiselTest = (props) => {
         if (lines.length > 0) {
             let lastLine = lines[lines.length - 1]
             // let beforeLast = lines[lines.length - 2]
-            saveLast.current = lastLine
-
+            
             let newTotal = lines.filter(line => line !== lastLine)
             setLines(newTotal)
 
@@ -148,7 +147,10 @@ const EiselTest = (props) => {
         <div className='utensilBar'>
 
         <div>
-
+        <div className='linkFeatures'>
+           <button onClick={undoLine} style={{fontFamily: 'Marker Felt'}}>Undo Last</button>
+           <button onClick={redoLine} style={{fontFamily: 'Marker Felt'}}>Redo Last</button>
+       </div>
         {/* <NavLink to='/gallery/display'>Back to Gallery!</NavLink> */}
         </div>
         
@@ -171,14 +173,11 @@ const EiselTest = (props) => {
        
        <div className='eraseButton'>
 
-       <button className="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
+       <button className="eraser" style={{fontFamily: 'Marker Felt'}} onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
        {click ? eraseSelect() : console.log('erase select not rendered')}
        </div>
 
-       <div>
-           <button onClick={undoLine}>Undo Last</button>
-           <button onClick={redoLine}>Redo Last</button>
-       </div>
+       
        
        </div>
        

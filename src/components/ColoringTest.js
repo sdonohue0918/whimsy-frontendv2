@@ -1,4 +1,4 @@
-import { Stage, Layer, Line, Rect, Image} from 'react-konva'
+import { Stage, Layer, Line, Image} from 'react-konva'
 import {useState, useRef, useEffect} from 'react'
 import useImage from 'use-image'
 
@@ -19,11 +19,11 @@ const ColoringTest = () => {
     const [lineCap, setLineCap] = useState('round')
     const [opacity, setOpacity] = useState(1)
     const isDrawing = useRef(false) 
-    const eiselStage = useRef()
     const targetLayer = useRef()
     const [click, setClick] = useState(false)
     const [print, setPrint] = useState('')
     const [image] = useImage(print)
+    const saveLast = useRef()
 
 
     
@@ -59,7 +59,8 @@ const ColoringTest = () => {
         let lastLine = lines[lines.length - 1];
         
         lastLine.points = lastLine.points.concat([point.x, point.y]);
-    
+        saveLast.current = lastLine
+
         
         lines.splice(lines.length - 1, 1, lastLine);
         setLines(lines.concat());
@@ -89,6 +90,24 @@ const ColoringTest = () => {
         )
     } 
 
+    const undoLine = () => {
+        if (lines.length > 0) {
+            let lastLine = lines[lines.length - 1]
+            // let beforeLast = lines[lines.length - 2]
+
+            let newTotal = lines.filter(line => line !== lastLine)
+            setLines(newTotal)
+
+        } else {
+            return
+        }
+    }
+
+    const redoLine = () => {
+       
+        let newTotal = lines.concat(saveLast.current)
+        setLines(newTotal)
+    }
     
     
     
@@ -100,7 +119,8 @@ const ColoringTest = () => {
           <>
         <div id='coloringTestBackground'>
         <div className='utensilBar'>
-          
+            
+    
           
           <div>
           <select id="printSelect" onChange={(evt) => {setPrint(evt.target.value)}}>
@@ -113,6 +133,11 @@ const ColoringTest = () => {
             <option value='https://whimsy-coloringprints.s3.us-east-2.amazonaws.com/prints/coloring-whimsical-background.jpg'>Many Flowers</option>
          </select>
           </div>
+
+          <div className='linkFeatures'>
+           <button onClick={undoLine} style={{fontFamily: 'Marker Felt'}}>Undo Last</button>
+           <button onClick={redoLine} style={{fontFamily: 'Marker Felt'}}>Redo Last</button>
+       </div>
         
         
         <div>
@@ -135,9 +160,11 @@ const ColoringTest = () => {
 
         <div className='eraseButton'>
 
-       <button className="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
+       <button className="eraser" style={{fontFamily: 'Marker Felt'}} onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
        {click ? eraseSelect() : console.log('erase select not rendered')}
         </div>
+
+        
        
        </div>
        </div>
