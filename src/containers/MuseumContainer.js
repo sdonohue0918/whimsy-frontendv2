@@ -146,8 +146,7 @@ class MuseumContainer extends Component {
             }
         }
         
-        // setWorks(worksArray)
-        // setFetchLoading('success')
+        
 
         this.setState({
             works: worksArray,
@@ -190,7 +189,7 @@ class MuseumContainer extends Component {
     
     render() {
 
-        console.log(this.state)
+        
         return (
             
             

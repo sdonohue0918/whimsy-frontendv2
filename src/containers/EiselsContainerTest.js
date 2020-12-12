@@ -12,7 +12,7 @@ import ArtworkShow from '../components/ArtworkShow'
 const EiselsContainer = (props) => {
     
 
-   
+   console.log(props)
 
    return (
         <div>
@@ -23,12 +23,12 @@ const EiselsContainer = (props) => {
                     let work
                     if (props.artworks.length > 0) {
                         let id = parseInt(routerProps.match.params.workid)
-                        work = props.artworks.find(work => work.objectID === id)
+                        work = props.artworks.find(work => work.id === id)
                     }
 
                     return (
                         <div>
-                            { work ? <ArtworkShow currentUser={props.currentUser} details={work}/> : null}
+                            { work ? <ArtworkShow {...routerProps} currentUser={props.currentUser} details={work}/> : null}
                         </div>
                     )
                 }}/>
@@ -48,7 +48,7 @@ const EiselsContainer = (props) => {
                     }
                     return (
                         <div>
-                            {eisel ? <EiselShow postLike={props.postLike} deleteLike={props.deleteLike} deleteEisel={props.deleteEisel} currentUser={props.currentUser} eisel={eisel}/> : <h3>Loading</h3> }
+                            {eisel ? <EiselShow {...routerProps} postLike={props.postLike} deleteLike={props.deleteLike} deleteEisel={props.deleteEisel} currentUser={props.currentUser} eisel={eisel}/> : <h3>Loading</h3> }
                         </div>
                     )
                 }}/>
@@ -60,7 +60,7 @@ const EiselsContainer = (props) => {
                         <div>
                             <div id='eiselContainerBackground'>
                         
-                        <GalleryFilters  eisels={props.eisels} artworks={props.artworks} currentUser={props.currentUser}/>
+                            <GalleryFilters  eisels={props.eisels} artworks={props.artworks} currentUser={props.currentUser}/>
                             </div>
                         </div>
                         )

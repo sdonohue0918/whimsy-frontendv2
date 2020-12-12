@@ -9,7 +9,7 @@ const ArtworkCard = (props) => {
     
     
     const redirect = () => {
-        history.push(`/gallery/display/artwork/${props.details.objectID}`)
+        history.push(`/gallery/display/artwork/${props.details.id}`)
     }
     
     

@@ -2,7 +2,7 @@
 
 const ArtworkShow = (props) => {
 
-    
+    console.log(props)
 
     return (
         <div>

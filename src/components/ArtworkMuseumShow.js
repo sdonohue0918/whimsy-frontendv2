@@ -1,7 +1,9 @@
 const ArtworkMuseumShow = (props) => {
     
     
-    
+    const handlePost = () => {
+        props.postWork(props.details)
+    }
     
     
     
@@ -12,7 +14,7 @@ const ArtworkMuseumShow = (props) => {
             <div className='showCard'>
 
              <img className='artworkShowImage'src={props.details.primaryImage} alt='not available'/>
-             <button className='museumShowButton' onClick={props.postWork}>Save This To Your Gallery!</button>
+             <button className='museumShowButton' onClick={handlePost}>Save This To Your Gallery!</button>
              </div>
             
             <div className='artDetailsTabOne'>

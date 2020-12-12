@@ -17,22 +17,17 @@ class GalleryContainer extends Component {
     
     componentDidMount() {
         
-        fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => this.setState({eisels: data}))
-        fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
+        fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => this.setState({eisels: data}, () => {
+            fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
+        }))
+        // fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
 
     }
 
     
 
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (prevState !== this.state) {
-    //         this.setState(this.state)
-    //     }
-    // }
-
      postArtworkToAPI = (workObj) => {
-        //console.log(workObj)
+        
         let data = new FormData()
           data.append('artwork[user_id]', this.props.currentUser.id)
           data.append('artwork[objectID]', workObj.objectID)
@@ -56,9 +51,11 @@ class GalleryContainer extends Component {
           if (this.state.artworks.length > 0) {
             
             this.setState({artworks: [...this.state.artworks, data]})
+            this.props.history.push('/gallery/display')
           } else {
             
             this.setState({artworks: data})
+            this.props.history.push('/gallery/display')
           }
         
        
@@ -110,12 +107,9 @@ class GalleryContainer extends Component {
       
 
 
-
-    // console.log(artworks)
-    // console.log(eisels)
-
    render() {
-
+    console.log(this.state.artworks)
+    console.log(this.state.eisels)
        return (
            
            <div>
