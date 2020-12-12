@@ -46,7 +46,7 @@ class MuseumContainer extends Component {
                 return (
                     <div >
                         {/* <h3 className='museumFlagError'>No Results Returned!</h3> */}
-                        <button onClick={this.refresh}>Click To See Results!</button>
+                        <button style={{marginLeft: '700px', width: '50%', fontFamily:'Snell Roundhand'}} onClick={this.refresh}>Click To See Results!</button>
                     </div>
                 )
             }
@@ -126,7 +126,7 @@ class MuseumContainer extends Component {
         
         let idList = []
         
-        for (let i = 0; i <= 20; i++) {
+        for (let i = 0; i <= 9; i++) {
             idList.push(objects.objectIDs[Math.floor(Math.random() * objects.objectIDs.length)])
             
         }
@@ -135,7 +135,7 @@ class MuseumContainer extends Component {
         
         let worksArray = []
         
-        if (idList.length === 21) {
+        if (idList.length === 10) {
 
             for (let i = 0; i < idList.length; i++) {
                 fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${idList[i]}`, config).then(resp => resp.json()).then(data => {

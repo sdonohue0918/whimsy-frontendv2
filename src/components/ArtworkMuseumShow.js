@@ -40,7 +40,7 @@ const ArtworkMuseumShow = (props) => {
             <div className='artDetailsTabTwo'>
                  <div className='artDetail'>
                 <h4><u>Medium</u> ~</h4>
-                <h4>{props.details.medium}</h4>
+                <h4 style={{fontFamily: 'Snell Roundhand'}}>{props.details.medium}</h4>
 
                 </div>
 
@@ -49,10 +49,7 @@ const ArtworkMuseumShow = (props) => {
                 {props.details.region === "" || props.details.region === undefined ? <h4>N/A</h4> : <h4>{props.details.region}</h4>}
                 </div>
 
-                <div className='artDetail'>
-                <h4><u>Country of Origin</u> ~</h4>
-                {props.details.country === "" || props.details.country === undefined ? <h4>N/A</h4> : <h4>{props.details.country}</h4>}
-                </div>
+               
             
             </div>
 

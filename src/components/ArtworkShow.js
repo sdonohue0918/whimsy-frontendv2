@@ -15,7 +15,7 @@ const ArtworkShow = (props) => {
             <div className='showCard'>
 
              <img className='artworkShowImage'src={props.details.primaryImage} alt='not available'/>
-             
+             <button className='museumShowButton' style={{color: 'red'}} onClick={handleDelete}>Delete Artwork</button>
             </div>
             
             <div className='artDetailsTabOne'>
@@ -45,22 +45,17 @@ const ArtworkShow = (props) => {
                 <div className='artDetail'> 
                 <h4><u>Medium</u> ~</h4>
                 
-                <h4>{props.details.medium}</h4>
+                <h4 style={{fontFamily:'Snell Roundhand'}}>{props.details.medium}</h4>
                 </div>
 
                 <div className='artDetail'>
                 <h4><u>Region</u> ~</h4>
-                <h4>{props.details.region}</h4>
+                
+                {props.details.region === "" || props.details.region === undefined ? <h4> N/A </h4> : <h4>{props.details.region}</h4>}
                 </div>
 
-                <div className='artDetail'>
-                <h4><u>Country of Origin</u> ~</h4>
-                <h4>{props.details.country_of_origin}</h4>
-                </div>
-
-                <div className='artDetail'>
-                    <button onClick={handleDelete}>Delete Artwork</button>
-                </div>
+               
+                
             
             </div>
 

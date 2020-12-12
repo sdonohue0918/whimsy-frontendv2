@@ -9,48 +9,10 @@ class GalleryFilters extends Component {
     
     state = {
         selectValue: "default",
-        // filteredEisels: [],
-        // filteredArtworks: []
+        
     }
     
-    // componentDidMount() {
-    //     this.setFilter()
-    // }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     // this.setFilter()
-    //     if (prevProps !== this.props) {
-    //         this.setState(this.state)
-    //     }
-    // }
-
-    // setEisels = () => {
-
-    // }
     
-
-    // setFilter = () => {
-    //         if (this.state.selectValue === "userOnly") {
-    //                 let userEisels = this.props.eisels.filter(eisel => eisel.user_id === this.props.currentUser.id)
-    //                 this.setState({filteredEisels: userEisels})
-                 
-    //             }  else if (this.state.selectValue === "savedArtworks") {
-    //                 let userArtworks = this.props.artworks.filter(work => work.user_id === this.props.currentUser.id)
-    //                 this.setState({filteredArtworks: userArtworks})
-    //             }
-    //         }
-
-            
-
-
-    // renderEisels = () => {
-    //     if (this.state.selectValue !== "savedArtworks") {
-
-    //         return this.state.filteredEisels.map(eisel => { return <EiselCard key={eisel.id} eisel={eisel}/>})
-    //     } else {
-    //         return this.state.filteredArtworks.map(work => { return <ArtworkCard key={work.objectID} details={work}/>})
-    //     }
-    // }
 
 
     renderCardsFilter = () => {
@@ -65,7 +27,7 @@ class GalleryFilters extends Component {
         } else  {
             return (
                 <div>
-                    <h3>Use Select Bar To Choose A Filter</h3>
+                    <h3 style={{fontFamily: 'Marker Felt', marginTop: '100px', marginLeft:'700px'}}> Use Select Bar To Choose A Filter</h3>
                 </div>
             )
         }
