@@ -2,7 +2,11 @@
 
 const ArtworkShow = (props) => {
 
-    console.log(props)
+    //console.log(props)
+
+    const handleDelete = () => {
+        props.deleteArtwork(props.details)
+    }
 
     return (
         <div>
@@ -52,6 +56,10 @@ const ArtworkShow = (props) => {
                 <div className='artDetail'>
                 <h4><u>Country of Origin</u> ~</h4>
                 <h4>{props.details.country_of_origin}</h4>
+                </div>
+
+                <div className='artDetail'>
+                    <button onClick={handleDelete}>Delete Artwork</button>
                 </div>
             
             </div>

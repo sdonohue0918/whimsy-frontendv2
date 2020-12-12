@@ -28,7 +28,7 @@ const EiselsContainer = (props) => {
 
                     return (
                         <div>
-                            { work ? <ArtworkShow {...routerProps} currentUser={props.currentUser} details={work}/> : null}
+                            { work ? <ArtworkShow {...routerProps} deleteArtwork={props.deleteArtwork} currentUser={props.currentUser} details={work} /> : null}
                         </div>
                     )
                 }}/>
@@ -48,7 +48,7 @@ const EiselsContainer = (props) => {
                     }
                     return (
                         <div>
-                            {eisel ? <EiselShow {...routerProps} postLike={props.postLike} deleteLike={props.deleteLike} deleteEisel={props.deleteEisel} currentUser={props.currentUser} eisel={eisel}/> : <h3>Loading</h3> }
+                            {eisel ? <EiselShow {...routerProps}  deleteEisel={props.deleteEisel} currentUser={props.currentUser} eisel={eisel}/> : <h3>Loading</h3> }
                         </div>
                     )
                 }}/>

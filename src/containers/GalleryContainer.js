@@ -103,6 +103,20 @@ class GalleryContainer extends Component {
         
       }
 
+      deleteArtwork = (workObj) => {
+          let config = {
+              method: "DELETE",
+              headers: {
+                  "content-type":"application/json"
+              }
+          }
+
+          fetch(`http://localhost:3000/artworks/${workObj.id}`, config).then(resp => resp.json()).then(data => {
+              let artworksAfterDelete = this.state.artworks.filter(work => work.id !== data.id)
+              this.setState({artworks: artworksAfterDelete})
+              this.props.history.push('/gallery/display')
+          })
+      }
 
       
 
@@ -135,7 +149,8 @@ class GalleryContainer extends Component {
                 <EiselsContainer currentUser={this.props.currentUser}
                 eisels={this.state.eisels}
                 artworks={this.state.artworks}
-                deleteEisel={this.deleteEisel} 
+                deleteEisel={this.deleteEisel}
+                deleteArtwork={this.deleteArtwork} 
                 />
                 
                 </div>
