@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Stage, Layer, Line, Rect} from 'react-konva';
-import {withRouter, NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import NewEiselForm from './NewEiselForm';
 
 
@@ -118,9 +118,14 @@ const EiselTest = (props) => {
         )
     } 
 
+    const undoLine = () => {
+        let lastLine = lines[lines.length - 1]
+        let newTotal = lines.filter(line => line !== lastLine)
+        setLines(newTotal)
+    }
 
 
-      
+      console.log(lines)
       
       return (
           <>
@@ -129,7 +134,7 @@ const EiselTest = (props) => {
 
         <div>
 
-        <NavLink to='/gallery/display'>Back to Gallery!</NavLink>
+        {/* <NavLink to='/gallery/display'>Back to Gallery!</NavLink> */}
         </div>
         
         <div className='colorBar'>
@@ -154,6 +159,10 @@ const EiselTest = (props) => {
        <button className="eraser" onClick={eraseClickHandler}>{click ? 'Toggle Draw' : 'Toggle Erase'}</button>
        {click ? eraseSelect() : console.log('erase select not rendered')}
        </div>
+
+       <div>
+           <button onClick={undoLine}>Undo Last</button>
+       </div>
        
        </div>
        
@@ -174,7 +183,7 @@ const EiselTest = (props) => {
                       <Rect height={590} width={590} fill='white'/>
 
                       
-                   {isDrawing ? lines.map((line, i) => (<Line key={i} points={line.points} stroke={line.stroke} strokeWidth={line.strokeWidth} tension={line.tension} lineCap={line.lineCap} opacity={line.opacity} />)) : console.log("check for errors")}
+                   {isDrawing ? lines.map((line, i) => (<Line key={i} points={line.points} stroke={line.stroke} strokeWidth={line.strokeWidth} tension={line.tension} lineCap={line.lineCap} opacity={line.opacity} />)) : null}
                   
                   
                   </Layer>
@@ -189,7 +198,7 @@ const EiselTest = (props) => {
         
         
         
-        {formClick ? <NewEiselForm data={rawData} postEisel={props.postEisel} currentUser={props.currentUser}/> : console.log("error")}
+        {formClick ? <NewEiselForm data={rawData} postEisel={props.postEisel} currentUser={props.currentUser}/> : null}
         
         
         
