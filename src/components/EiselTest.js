@@ -22,19 +22,21 @@ const EiselTest = (props) => {
     
     const [lines, setLines] = useState([])
     const [lineColor, setLineColor] = useState('black')
-    
     const [strokeWidth, setStrokeWidth] = useState(1)
     const [tension, setTension] = useState(0.2)
     const [lineCap, setLineCap] = useState('round')
     const [opacity, setOpacity] = useState(1)
-
     const [rawData, setRawData] = useState(null)
     const isDrawing = useRef(false) 
-    const eiselStage = useRef()
-    const targetLayer = useRef()
-    
     const [click, setClick] = useState(false)
     const [formClick, setFormClick] = useState(false)
+    const eiselStage = useRef()
+    const saveLast = useRef()
+
+
+    
+
+    
     
 
 
@@ -119,11 +121,24 @@ const EiselTest = (props) => {
     } 
 
     const undoLine = () => {
-        let lastLine = lines[lines.length - 1]
-        let newTotal = lines.filter(line => line !== lastLine)
-        setLines(newTotal)
+        if (lines.length > 0) {
+            let lastLine = lines[lines.length - 1]
+            // let beforeLast = lines[lines.length - 2]
+            saveLast.current = lastLine
+
+            let newTotal = lines.filter(line => line !== lastLine)
+            setLines(newTotal)
+
+        } else {
+            return
+        }
     }
 
+    const redoLine = () => {
+       
+        let newTotal = lines.concat(saveLast.current)
+        setLines(newTotal)
+    }
 
       console.log(lines)
       
@@ -162,6 +177,7 @@ const EiselTest = (props) => {
 
        <div>
            <button onClick={undoLine}>Undo Last</button>
+           <button onClick={redoLine}>Redo Last</button>
        </div>
        
        </div>
@@ -171,15 +187,16 @@ const EiselTest = (props) => {
             
               <Stage
               
-              ref={eiselStage}
+              
               width={stageProps.width}
               height={stageProps.height}
               onMouseDown={handleMouseDown}
               onMousemove={handleMouseMove}
               onMouseUp={handleMouseUp}
+              ref={eiselStage}
               > 
 
-                  <Layer ref={targetLayer}>
+                  <Layer >
                       <Rect height={590} width={590} fill='white'/>
 
                       
