@@ -17,8 +17,8 @@ class GalleryContainer extends Component {
     
     componentDidMount() {
         
-        fetch('http://localhost:3000/eisels').then(resp => resp.json()).then(data => this.setState({eisels: data}, () => {
-            fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
+        fetch('https://cryptic-forest-09364.herokuapp.com/eisels').then(resp => resp.json()).then(data => this.setState({eisels: data}, () => {
+            fetch('https://cryptic-forest-09364.herokuapp.com/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
         }))
         // fetch('http://localhost:3000/artworks').then(resp => resp.json()).then(data => this.setState({artworks: data}))
 
@@ -47,7 +47,7 @@ class GalleryContainer extends Component {
         }
     
     
-        fetch('http://localhost:3000/artworks', config).then(resp => resp.json()).then(data => {
+        fetch('https://cryptic-forest-09364.herokuapp.com/artworks', config).then(resp => resp.json()).then(data => {
           if (this.state.artworks.length > 0) {
             
             this.setState({artworks: [...this.state.artworks, data]})
@@ -69,7 +69,7 @@ class GalleryContainer extends Component {
           method: "POST",
           body: eiselObj
         }
-        fetch('http://localhost:3000/eisels', config).then(resp => resp.json()).then(data => {
+        fetch('https://cryptic-forest-09364.herokuapp.com/eisels', config).then(resp => resp.json()).then(data => {
         
 
         this.setState({eisels: [...this.state.eisels, data]})
@@ -91,7 +91,7 @@ class GalleryContainer extends Component {
           }
         }
       
-        fetch(`http://localhost:3000/eisels/${eiselObj.id}`, config).then(resp => resp.json()).then(data => {
+        fetch(`https://cryptic-forest-09364.herokuapp.com/eisels/${eiselObj.id}`, config).then(resp => resp.json()).then(data => {
             let eiselsAfterDelete = this.state.eisels.filter(eisel => eisel.id !== data.id)
         
             this.setState({eisels: eiselsAfterDelete})
@@ -111,7 +111,7 @@ class GalleryContainer extends Component {
               }
           }
 
-          fetch(`http://localhost:3000/artworks/${workObj.id}`, config).then(resp => resp.json()).then(data => {
+          fetch(`https://cryptic-forest-09364.herokuapp.com/artworks/${workObj.id}`, config).then(resp => resp.json()).then(data => {
               let artworksAfterDelete = this.state.artworks.filter(work => work.id !== data.id)
               this.setState({artworks: artworksAfterDelete})
               this.props.history.push('/gallery/display')

@@ -22,7 +22,7 @@ import React from 'react'
   
   useEffect(() => {
     
-    fetch('http://localhost:3000/users').then(resp => resp.json()).then(data => setAppUsers(data))
+    fetch('https://cryptic-forest-09364.herokuapp.com/users').then(resp => resp.json()).then(data => setAppUsers(data))
     
   }, [])
 
@@ -37,7 +37,9 @@ const postUserToAPI = (userObj) => {
       method: "POST",
       body: userObj
     }
-    fetch('http://localhost:3000/users', config).then(resp => resp.json()).then(data => setAppUsers([...users, data]))
+    fetch('https://cryptic-forest-09364.herokuapp.com/users', config).then(resp => resp.json())
+    .then(data => { setAppUsers([...users, data]) 
+    history.push('/login')})
   }
 
 
